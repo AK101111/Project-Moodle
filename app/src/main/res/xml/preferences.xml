@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:title="Moodle Url"
+        android:summary="Set the moodle url"
+        android:key="moodle_url"
+        android:defaultValue="192.168.0.100:8000"/>
+</PreferenceScreen>
