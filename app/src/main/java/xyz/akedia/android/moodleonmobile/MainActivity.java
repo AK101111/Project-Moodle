@@ -13,14 +13,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
+
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * TODO Move to a global application context (need to create that)
-     * @return Moodle Url
-     */
-    public String getMoodleUrl() {
-        return PreferenceManager.getDefaultSharedPreferences(this).getString("moodle_url","NULL");
+    public void continueToLogin(View view){
+        Intent i = new Intent(this,LoginActivity.class);
+        startActivity(i);
+//        MainActivity.this.finish();
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                Snackbar.make(view, String.format("Moodle Url = %s",getMoodleUrl()), Snackbar.LENGTH_LONG)
+                Snackbar.make(view, String.format("Moodle Url = %s",((MoodleOnMobile) getApplication()).getMoodleUrl()), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

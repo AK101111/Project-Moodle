@@ -13,7 +13,15 @@
     tools:showIn="@layout/activity_main">
 
     <TextView
+        android:id="@+id/welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Welcome to Moodle Mobile App" />
+    <Button
+        android:id="@+id/to_login_activity"
+        android:text="Continue to Login"
+        android:onClick="continueToLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcome"/>
 </RelativeLayout>
