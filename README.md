@@ -4,6 +4,8 @@ Mobile app for Moodle
 ##Tasks
 ###Ashish
 * UI
+    *Calendar
+    *Search
 * Material Design
 
 ###Arnav
