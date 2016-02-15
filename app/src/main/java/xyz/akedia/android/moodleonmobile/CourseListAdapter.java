@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,17 +17,24 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
 
     public static class CourseViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
+        TextView courseCode;
         TextView courseName;
 
-        CourseViewHolder(View itemView) {
+        CourseViewHolder(final View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
+            courseCode = (TextView)itemView.findViewById(R.id.course_code);
             courseName = (TextView)itemView.findViewById(R.id.course_name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
-    List<String> courseNames;
+    List<String[]> courseNames;
 
-    public CourseListAdapter(List<String> persons){
+    public CourseListAdapter(List<String[]> persons){
         this.courseNames = persons;
     }
     @Override
@@ -41,7 +49,9 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     }
     @Override
     public void onBindViewHolder(CourseViewHolder personViewHolder, int i) {
-        personViewHolder.courseName.setText(courseNames.get(i));
+        personViewHolder.courseCode.setText(courseNames.get(i)[0]);
+        personViewHolder.courseName.setText(courseNames.get(i)[1]);
+
     }
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
