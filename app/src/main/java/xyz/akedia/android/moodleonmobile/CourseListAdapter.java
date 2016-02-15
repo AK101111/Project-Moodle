@@ -25,7 +25,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
             cv = (CardView)itemView.findViewById(R.id.card_view);
             courseCode = (TextView)itemView.findViewById(R.id.course_code);
             courseName = (TextView)itemView.findViewById(R.id.course_name);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            cv.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
                 }
@@ -48,14 +48,13 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
         return courseViewHolder;
     }
     @Override
-    public void onBindViewHolder(CourseViewHolder personViewHolder, int i) {
-        personViewHolder.courseCode.setText(courseNames.get(i)[0]);
-        personViewHolder.courseName.setText(courseNames.get(i)[1]);
+    public void onBindViewHolder(CourseViewHolder courseViewHolder, int i) {
+        courseViewHolder.courseCode.setText(courseNames.get(i)[0]);
+        courseViewHolder.courseName.setText(courseNames.get(i)[1]);
 
     }
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
-
 }

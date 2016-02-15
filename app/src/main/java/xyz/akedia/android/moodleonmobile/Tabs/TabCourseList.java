@@ -38,6 +38,7 @@ public class TabCourseList extends Fragment {
         CourseListAdapter adapter = new CourseListAdapter(courseNames);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorAccent);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
