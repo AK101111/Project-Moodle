@@ -35,7 +35,7 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
         String[] codes = {"CSL100","COP290","TXL361","EEL324","TXL371","HUL362"};
         String[] names = {"Introduction to Computer Science"
                         ,"Design Practices"
-                        ,"EVALUATION OF TEXTILE MATERIAL"
+                        ,"Evaluation of Textile Material"
                         ,"Some EE course"
                         ,"Some TX course"
                         ,"Organizational Behaviour"};
