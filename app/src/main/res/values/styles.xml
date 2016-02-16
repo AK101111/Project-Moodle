@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="android:windowAnimationStyle">@style/InOut.Window</item>-->
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,4 +18,10 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="InOut.Window" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/anim_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_out</item>
+    </style>
+
+    <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog"><item name="android:windowAnimationStyle">@style/InOut.Window</item></style>
 </resources>
