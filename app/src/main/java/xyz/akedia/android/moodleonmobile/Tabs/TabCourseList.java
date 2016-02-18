@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import xyz.akedia.android.moodleonmobile.CourseList;
 import xyz.akedia.android.moodleonmobile.CourseListAdapter;
 import xyz.akedia.android.moodleonmobile.R;
 
@@ -19,7 +20,7 @@ import xyz.akedia.android.moodleonmobile.R;
  * Created by ashish on 15/2/16.
  */
 public class TabCourseList extends Fragment {
-    List<String[]> courseNames;
+    CourseList courseList;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,15 +28,15 @@ public class TabCourseList extends Fragment {
         init(v);
         return v;
     }
-    public void setVals(List<String[]> cNames){
-        this.courseNames = cNames;
+    public void setVals(CourseList list){
+        this.courseList = list;
     }
     private void init(View view){
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.courseList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
-        CourseListAdapter adapter = new CourseListAdapter(courseNames);
+        CourseListAdapter adapter = new CourseListAdapter(courseList);
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark,R.color.colorAccent);

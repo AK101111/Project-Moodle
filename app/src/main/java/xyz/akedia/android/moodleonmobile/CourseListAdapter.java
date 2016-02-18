@@ -17,14 +17,15 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
 
     public static class CourseViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
-        TextView courseCode;
-        TextView courseName;
+        TextView courseCode, courseName, courseDescription, courseCredits;
 
         CourseViewHolder(final View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
             courseCode = (TextView)itemView.findViewById(R.id.course_code);
             courseName = (TextView)itemView.findViewById(R.id.course_name);
+            courseDescription = (TextView)itemView.findViewById(R.id.course_description);
+            courseCredits = (TextView)itemView.findViewById(R.id.course_credits);
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
@@ -32,14 +33,14 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
             });
         }
     }
-    List<String[]> courseNames;
+    CourseList courseList;
 
-    public CourseListAdapter(List<String[]> persons){
-        this.courseNames = persons;
+    public CourseListAdapter(CourseList list){
+        this.courseList = list;
     }
     @Override
     public int getItemCount() {
-        return courseNames.size();
+        return courseList.courseCount();
     }
     @Override
     public CourseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -49,9 +50,11 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     }
     @Override
     public void onBindViewHolder(CourseViewHolder courseViewHolder, int i) {
-        courseViewHolder.courseCode.setText(courseNames.get(i)[0]);
-        courseViewHolder.courseName.setText(courseNames.get(i)[1]);
-
+        Course course = courseList.getCourse(i);
+        courseViewHolder.courseCode.setText(course.courseCode);
+        courseViewHolder.courseName.setText(course.courseName);
+        courseViewHolder.courseDescription.setText(course.courseDescription);
+        courseViewHolder.courseCredits.setText(course.courseCredits);
     }
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {

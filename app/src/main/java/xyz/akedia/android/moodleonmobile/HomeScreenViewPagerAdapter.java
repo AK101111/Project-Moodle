@@ -30,8 +30,8 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
         this.NumbOfTabs = mNumbOfTabsumb;
     }
 
-    private List<String[]> getDummyCourseList(){
-        List<String[]> courseList = new ArrayList<>();
+    private CourseList getDummyCourseList(){
+        CourseList courseList = new CourseList();
         String[] codes = {"CSL100","COP290","TXL361","EEL324","TXL371","HUL362"};
         String[] names = {"Introduction to Computer Science"
                         ,"Design Practices"
@@ -39,9 +39,13 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
                         ,"Some EE course"
                         ,"Some TX course"
                         ,"Organizational Behaviour"};
+        String description = "Introduction to the concept of Software Design and Engineering.";
+        String[] credits = {"4 credits (3-0-2)",
+                        "3 credits (0-0-6)",
+                        "3 credits (3-0-0)","3 credits (0-0-6)","3 credits (0-0-6)","3 credits (0-0-6)"};
         for(int i = 0; i < codes.length ; i++){
-            String[] data = {codes[i],names[i]};
-            courseList.add(data);
+            Course course = new Course(codes[i],names[i],description,credits[i]);
+            courseList.addCourse(course);
         }
         return courseList;
     }
