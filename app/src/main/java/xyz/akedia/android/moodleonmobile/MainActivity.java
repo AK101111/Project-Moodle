@@ -20,6 +20,7 @@ import com.astuetz.PagerSlidingTabStrip;
 
 public class MainActivity extends AppCompatActivity {
 
+    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUiElements(){
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,11 +42,32 @@ public class MainActivity extends AppCompatActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         HomeScreenViewPagerAdapter pagerAdapter = new HomeScreenViewPagerAdapter(getSupportFragmentManager());
         String [] titles = {"Courses","Notifications","Grades"};
-        pagerAdapter.setVals(titles,3);
+        pagerAdapter.setVals(titles,titles.length);
         pager.setAdapter(pagerAdapter);
+        pager.setOffscreenPageLimit(titles.length-1);
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(pager);
+
+        tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(position == 1)
+                    fab.show();
+                else
+                    fab.hide();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
