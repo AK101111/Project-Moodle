@@ -4,6 +4,7 @@ package xyz.akedia.android.moodleonmobile.config;
  * Contains urls of apis
  */
 public class ApiUrls {
+    public static final String LOGIN = "/default/login.json";
     public final static String LOGOUT = "​/default/logout.json";
     public final static String COURSES = "​/courses/list.json";
     public final static String NOTIFICATIONS = "​/default/notifications.json";
