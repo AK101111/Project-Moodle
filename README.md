@@ -5,6 +5,8 @@ Mobile app for Moodle
 ###Ashish
 * UI
     *Calendar
+        Sync to phone calender/ optional to user
+        Add reminder
     *Search
 * Material Design
 
