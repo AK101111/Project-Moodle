@@ -8,7 +8,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
+import xyz.akedia.android.moodleonmobile.config.ApiUrls;
+import xyz.akedia.android.moodleonmobile.model.User;
+import xyz.akedia.android.moodleonmobile.utils.Utils;
 
 /**
  * Created by arnavkansal on 14/02/16.
@@ -50,21 +62,27 @@ user: {
 current_year: 2016
 */
 
-public class listCoursesRegFetcher {
+public class listCoursesRegFetcher{
     private static final String TAG = listCoursesRegFetcher.class.getSimpleName();
     private RequestQueue courseListQueue;
-    public listCoursesRegFetcher(RequestQueue requestQueue){
+    private User user;
+    public listCoursesRegFetcher(RequestQueue requestQueue, User userModel){
         courseListQueue = requestQueue;
+        user = userModel;
     }
-    public void getCoursesList(){
-        String requestUrl = Config.BASE_URL+Config.COURSES_URL;
+    public void getCoursesList(String baseUrl){
+        String requestUrl = baseUrl + ApiUrls.COURSES;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 requestUrl,
                 null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        validateAndParseResponse(response);
+                        try {
+                            validateAndParseResponse(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -77,7 +95,14 @@ public class listCoursesRegFetcher {
         courseListQueue.add(jsonObjectRequest);
     }
 
-    private void validateAndParseResponse(JSONObject jsonObject){
-
+    private void validateAndParseResponse(JSONObject jsonObject) throws JSONException {
+        LinkedHashMap user_details;
+        LinkedHashMap[] curr_courses;
+        int curr_sem,curr_year;
+        curr_sem = jsonObject.getInt("current_sem");
+        curr_courses = Utils.jsonArrayToHashMap(jsonObject.getJSONArray("courses"));
+        user_details = Utils.jsonObjectToHashMap(jsonObject.getJSONObject("user"));
+        curr_year = jsonObject.getInt("current_year");
+        user.update_Info(curr_sem, curr_courses, user_details, curr_year);
     }
 }
