@@ -2,12 +2,14 @@
 Mobile app for Moodle
 
 ##Tasks
+Sync to phone calender/ optional to user
+Add reminder
+Grades -- Export a PDF
+    
 ###Ashish
 * UI
     *Calendar
-        Sync to phone calender/ optional to user
-        Add reminder
-    *Search
+        *Search
 * Material Design
 
 ###Arnav
