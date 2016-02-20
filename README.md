@@ -15,17 +15,17 @@ Grades -- Export a PDF
 ###Arnav
 Following APIS:
 * List of courses registered
-* All notifications
-* All grades
-* list of all assignments
-* info of a particular assignment
-* Course Grades
+    * All notifications
+        * All grades
+            * list of all assignments
+                * info of a particular assignment
+                    * Course Grades
 
 ###Abhishek
 Following APIS:
 * Login
-* Logout
-* List of Course Threads
-* info of a particular thread(including all comments)
-* create a new thread
-* Add comment to a thread 
+    * Logout
+        * List of Course Threads
+            * info of a particular thread(including all comments)
+                * create a new thread
+                    * Add comment to a thread
