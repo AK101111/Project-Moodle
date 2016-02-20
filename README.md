@@ -13,19 +13,19 @@ Grades -- Export a PDF
 * Material Design
 
 ###Arnav
-Following APIS:
-* List of courses registered
-    * All notifications
-        * All grades
-            * list of all assignments
-                * info of a particular assignment
-                    * Course Grades
+####Following APIS
+1. List of courses registered
+2. All notifications
+3. All grades
+4. list of all assignments
+5. info of a particular assignment
+6. Course Grades
 
 ###Abhishek
-Following APIS:
-* Login
-    * Logout
-        * List of Course Threads
-            * info of a particular thread(including all comments)
-                * create a new thread
-                    * Add comment to a thread
+####Following APIS:
+1. Login
+2. Logout
+3. List of Course Threads
+4. info of a particular thread(including all comments)
+5. create a new thread
+6. Add comment to a thread
