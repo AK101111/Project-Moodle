@@ -96,13 +96,6 @@ public class listCoursesRegFetcher{
     }
 
     private void validateAndParseResponse(JSONObject jsonObject) throws JSONException {
-        LinkedHashMap user_details;
-        LinkedHashMap[] curr_courses;
-        int curr_sem,curr_year;
-        curr_sem = jsonObject.getInt("current_sem");
-        curr_courses = Utils.jsonArrayToHashMap(jsonObject.getJSONArray("courses"));
-        user_details = Utils.jsonObjectToHashMap(jsonObject.getJSONObject("user"));
-        curr_year = jsonObject.getInt("current_year");
-        user.update_Info(curr_sem, curr_courses, user_details, curr_year);
+        user.update_listCourses(jsonObject);
     }
 }
