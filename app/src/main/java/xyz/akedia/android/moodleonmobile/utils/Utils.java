@@ -7,6 +7,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+
+import xyz.akedia.android.moodleonmobile.model.Assignment;
+import xyz.akedia.android.moodleonmobile.model.Courses;
+import xyz.akedia.android.moodleonmobile.model.Grades;
+
 /**
  * * Created by arnavkansal on 15/02/16.
  */
@@ -35,5 +40,34 @@ public class Utils {
             if(Data[i].get("code") == value) return i;
         }
         return -1;
+    }
+
+//    {
+//        code: "cop290",
+//                name: "Design Practices in Computer Science",
+//            description: "Design Practices in Computer Science.",
+//            credits: 3,
+//            id: 1,
+//            l_t_p: "0-0-6"
+//    }
+    public static Courses jsonObjectToCourseinfo(JSONObject jsonObject) throws JSONException {
+        LinkedHashMap<String, String> courseDetails = jsonObjectToHashMap(jsonObject);
+        Courses course = new Courses();
+        course.set_init(courseDetails);
+        return course;
+    }
+
+    public static Grades jsonObjectToGrades(JSONObject jsonObject) throws JSONException{
+        LinkedHashMap<String, String> gradeList = jsonObjectToHashMap(jsonObject);
+        Grades grades = new Grades();
+        grades.set_init(gradeList);
+        return grades;
+    }
+
+    public static Assignment jsonObjectToAssignment(JSONObject jsonObject) throws JSONException {
+        LinkedHashMap<String, String> assignmentList = jsonObjectToHashMap(jsonObject);
+        Assignment assignment = new Assignment();
+        assignment.set_init(assignmentList);
+        return assignment;
     }
 }
