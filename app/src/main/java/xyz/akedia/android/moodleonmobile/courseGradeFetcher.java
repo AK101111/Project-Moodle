@@ -22,18 +22,75 @@ import xyz.akedia.android.moodleonmobile.utils.Utils;
 /**
  * Created by arnavkansal on 15/02/16.
  */
-
-
-public class gradeFetcher {
+/*
+{
+        assignments: [ ],
+        registered: {
+        starting_date: "2016-01-01 00:00:00",
+        id: 1,
+        professor: 5,
+        semester: 2,
+        ending_date: "2016-05-10 00:00:00",
+        year_: 2016,
+        course_id: 1
+        },
+        course_threads: [ ],
+        course: {
+        code: "cop290",
+        name: "Design Practices in Computer Science",
+        description: "Design Practices in Computer Science.",
+        credits: 3,
+        id: 1,
+        l_t_p: "0-0-6"
+        },
+        grades: [
+        {
+        weightage: 10,
+        user_id: 1,
+        name: "Assignment 1",
+        out_of: 15,
+        registered_course_id: 1,
+        score: 15,
+        id: 1
+        },
+        {
+        weightage: 15,
+        user_id: 1,
+        name: "Assignment 2",
+        out_of: 20,
+        registered_course_id: 1,
+        score: 10,
+        id: 2
+        },
+        {
+        weightage: 25,
+        user_id: 1,
+        name: "Minor 1",
+        out_of: 30,
+        registered_course_id: 1,
+        score: 25,
+        id: 3
+        }
+        ],
+        tab: "grades",
+        year: 2016,
+        sem: 2,
+        resources: [ ],
+        previous: [ ]
+        }
+*/
+public class courseGradeFetcher {
     private static final String TAG = listCoursesRegFetcher.class.getSimpleName();
     private RequestQueue gradeListQueue;
     private User user;
-    public gradeFetcher(RequestQueue requestQueue, User userModel){
+    private String coursecode;
+    public courseGradeFetcher(RequestQueue requestQueue, User userModel, String requestCourse){
         gradeListQueue = requestQueue;
         user = userModel;
+        coursecode = requestCourse;
     }
     public void getCoursesList(String baseUrl){
-        String requestUrl = baseUrl + ApiUrls.GRADES;
+        String requestUrl = baseUrl + ApiUrls.COURSE_BASE+coursecode+"/grades";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 requestUrl,
                 null,
@@ -59,23 +116,6 @@ public class gradeFetcher {
 
     // Assumes listCoursesRegFetcher called before gradeFetcher.
     private void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException {
-        LinkedHashMap[] courses;
-        LinkedHashMap[] grades;
-        courses = Utils.jsonArrayToHashMap(jsonObject.getJSONArray("courses"));
-        grades = Utils.jsonArrayToHashMap(jsonObject.getJSONArray("grades"));
-        ArrayList<LinkedHashMap>[] Grades = mergeCoursesGrades(courses, grades, user.access_courses());
-        user.update_grades(Grades);
-    }
-
-    private ArrayList<LinkedHashMap>[] mergeCoursesGrades(LinkedHashMap[] courses, LinkedHashMap[] grades, LinkedHashMap[] reg_courses) {
-        // assert courses.length==grades.length: "Invalid response from server";
-        ArrayList<LinkedHashMap>[] Grades = (ArrayList<LinkedHashMap>[])new ArrayList[reg_courses.length];
-        int index;
-        for(int i=0; i<courses.length; ++i) {
-            index = Utils.findinCoursesArray(courses[i].get("code"), reg_courses);
-            // assert index>=0: "Invalid response of grades";
-            Grades[i].add(reg_courses[index]);
-        }
-        return Grades;
+        user.update_gradeList(coursecode, jsonObject);
     }
 }
