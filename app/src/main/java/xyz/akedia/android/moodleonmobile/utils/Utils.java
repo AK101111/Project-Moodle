@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import xyz.akedia.android.moodleonmobile.model.Assignment;
 import xyz.akedia.android.moodleonmobile.model.Courses;
 import xyz.akedia.android.moodleonmobile.model.Grades;
+import xyz.akedia.android.moodleonmobile.model.Notifications;
 
 /**
  * * Created by arnavkansal on 15/02/16.
@@ -70,4 +71,11 @@ public class Utils {
         assignment.set_init(assignmentList);
         return assignment;
     }
+
+    public static Notifications jsonObjectToNotification(JSONObject notification) throws JSONException {
+        Notifications retnotification = new Notifications();
+        retnotification.set_init(notification);
+        return retnotification;
+    }
+
 }
