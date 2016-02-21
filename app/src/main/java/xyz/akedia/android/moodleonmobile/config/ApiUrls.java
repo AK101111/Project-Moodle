@@ -10,6 +10,7 @@ public class ApiUrls {
     public final static String NOTIFICATIONS = "​/default/notifications.json";
     public final static String GRADES = "​/default/grades.json"; // /courses/course.json/<coursecode>/grades
     public final static String COURSE_BASE = "​/courses/course.json/";        //<coursecode>/assignments";
+    public final static String ASSIGNMENT_BASE = "/courses/assignment.json/";
     //final static String info of a particular assignment:​/courses/assignment.json/<assignment‐number> Course grades:​/courses/course.json/<coursecode>/grades
     public final static String COURSE_THREADS_BASE ="​/courses/course.json/";       //<coursecode>/threads
     public final static String THREAD_INFO_BASE = "/threads/thread.json/";         //<thread‐number>
