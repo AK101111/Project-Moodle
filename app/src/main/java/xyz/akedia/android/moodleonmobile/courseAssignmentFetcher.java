@@ -87,13 +87,13 @@ public class courseAssignmentFetcher {
     private static final String TAG = courseAssignmentFetcher.class.getSimpleName();
     private RequestQueue courseAssignmentQueue;
     private User user;
-    private String courseCode;
+    private String requestCode;
     public courseAssignmentFetcher(RequestQueue requestQueue, User userModel, String requestCourse){
         courseAssignmentQueue = requestQueue;
         user = userModel;
-        courseCode = requestCourse;
     }
-    public void getAssignmentList(String baseUrl){
+    public void getAssignmentList(String baseUrl, String courseCode){
+        requestCode = courseCode;
         String requestUrl = baseUrl + ApiUrls.COURSE_BASE + courseCode + "/assignments";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 requestUrl,
@@ -119,6 +119,6 @@ public class courseAssignmentFetcher {
     }
 
     private void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException {
-        user.update_assignmentList(courseCode, jsonObject);
+        user.update_assignmentList(requestCode, jsonObject);
     }
 }

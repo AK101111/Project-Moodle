@@ -83,14 +83,14 @@ public class courseGradeFetcher {
     private static final String TAG = listCoursesRegFetcher.class.getSimpleName();
     private RequestQueue gradeListQueue;
     private User user;
-    private String coursecode;
-    public courseGradeFetcher(RequestQueue requestQueue, User userModel, String requestCourse){
+    private String requestcode;
+    public courseGradeFetcher(RequestQueue requestQueue, User userModel){
         gradeListQueue = requestQueue;
         user = userModel;
-        coursecode = requestCourse;
     }
-    public void getCoursesList(String baseUrl){
-        String requestUrl = baseUrl + ApiUrls.COURSE_BASE+coursecode+"/grades";
+    public void getCoursesList(String baseUrl, String courseCode){
+        requestcode = courseCode;
+        String requestUrl = baseUrl + ApiUrls.COURSE_BASE+courseCode+"/grades";
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 requestUrl,
                 null,
@@ -116,6 +116,6 @@ public class courseGradeFetcher {
 
     // Assumes listCoursesRegFetcher called before gradeFetcher.
     private void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException {
-        user.update_gradeList(coursecode, jsonObject);
+        user.update_gradeList(requestcode, jsonObject);
     }
 }
