@@ -42,26 +42,6 @@ public class User implements Serializable {
             courses[i] = Utils.jsonObjectToCourseinfo(coursesArray.getJSONObject(i));
         }
     }
-//
-//    LinkedHashMap[] courses;
-//    LinkedHashMap[] grades;
-//    courses = Utils.jsonArrayToHashMap(jsonObject.getJSONArray("courses"));
-//    grades = Utils.jsonArrayToHashMap(jsonObject.getJSONArray("grades"));
-//    ArrayList<LinkedHashMap>[] Grades = mergeCoursesGrades(courses, grades, user.access_courses());
-//    user.update_grades(Grades);
-//
-//    private ArrayList<LinkedHashMap>[] mergeCoursesGrades(LinkedHashMap[] courses, LinkedHashMap[] grades, LinkedHashMap[] reg_courses) {
-//        // assert courses.length==grades.length: "Invalid response from server";
-//        ArrayList<LinkedHashMap>[] Grades = (ArrayList<LinkedHashMap>[])new ArrayList[reg_courses.length];
-//        int index;
-//        for(int i=0; i<courses.length; ++i) {
-//            index = Utils.findinCoursesArray(courses[i].get("code"), reg_courses);
-//            // assert index>=0: "Invalid response of grades";
-//            Grades[i].add(reg_courses[index]);
-//        }
-//        return Grades;
-//    }
-//
     public void update_gradeList(String coursecode, JSONObject jsonObject) throws JSONException {
         //TODO
         //  ADD
@@ -124,15 +104,15 @@ public class User implements Serializable {
         }
     }
 
-//    public void update_grades(ArrayList<LinkedHashMap>[] Grades) {
-//        grades = Grades;
-//    }
-//
-//
-//
-//    public void update_Assignments(ArrayList<LinkedHashMap>[] Assignments, LinkedHashMap[] Course_details) {
-//        assignments = Assignments;
-//        course_details = Course_details;
-//    }
+    public void updatefindAssignmentbyCode(JSONObject Assignment) throws JSONException{
+        String assgncode = Assignment.getString("id");
+        String course_id = Assignment.getString("registered_course_id");
+        for (int i=0;i<courses.length; ++i){
+            if(courses[i].id.equals(course_id)){
+                courses[i].update_assignment(Assignment);
+                break;
+            }
+        }
 
+    }
 }

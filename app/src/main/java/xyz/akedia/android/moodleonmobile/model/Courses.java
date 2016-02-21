@@ -1,9 +1,14 @@
 package xyz.akedia.android.moodleonmobile.model;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import xyz.akedia.android.moodleonmobile.utils.Utils;
 
 /**
  * Created by arnavkansal on 20/02/16.
@@ -44,7 +49,14 @@ public class Courses {
     public void set_assignment(Assignment[] assignmentList){
         assignment = assignmentList;
     }
-
+    public void update_assignment(JSONObject updated) throws JSONException{
+        String assgnCode = updated.getString("id");
+        for(int i=0; i<assignment.length; ++i){
+            if(assignment[i].id.equals(assgnCode)){
+                assignment[i] = Utils.jsonObjectToAssignment(updated);
+            }
+        }
+    }
 //    private LinkedHashMap[] grades;
 //    private LinkedHashMap[] assignments;
 //    private LinkedHashMap course_details;

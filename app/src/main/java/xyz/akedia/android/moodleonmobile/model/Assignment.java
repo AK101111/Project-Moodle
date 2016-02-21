@@ -24,7 +24,7 @@ public class Assignment {
     private String late_days_allowed;
     private String type_;
     private String deadline;
-    private String id;
+    public String id;
     private String description;
 
     public void set_init(LinkedHashMap<String, String> assignment){
