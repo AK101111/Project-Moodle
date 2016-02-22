@@ -1,4 +1,4 @@
-package xyz.akedia.android.moodleonmobile.Tabs;
+package xyz.akedia.android.moodleonmobile.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import xyz.akedia.android.moodleonmobile.CourseList;
-import xyz.akedia.android.moodleonmobile.CourseListAdapter;
+import xyz.akedia.android.moodleonmobile.Adapters.CourseListAdapter;
 import xyz.akedia.android.moodleonmobile.R;
 
 /**
@@ -36,7 +34,7 @@ public class TabCourseList extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
-        CourseListAdapter adapter = new CourseListAdapter(courseList);
+        CourseListAdapter adapter = new CourseListAdapter(courseList,getActivity());
         recyclerView.setAdapter(adapter);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark,R.color.colorAccent);

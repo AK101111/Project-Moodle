@@ -1,14 +1,18 @@
-package xyz.akedia.android.moodleonmobile;
+package xyz.akedia.android.moodleonmobile.Adapters;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.List;
+import xyz.akedia.android.moodleonmobile.Course;
+import xyz.akedia.android.moodleonmobile.CourseDetailsActivity;
+import xyz.akedia.android.moodleonmobile.CourseList;
+import xyz.akedia.android.moodleonmobile.R;
 
 /**
  * Created by ashish on 15/2/16.
@@ -19,7 +23,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
         CardView cv;
         TextView courseCode, courseName, courseDescription, courseCredits;
 
-        CourseViewHolder(final View itemView) {
+        CourseViewHolder(final View itemView, final Activity activity) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.card_view);
             courseCode = (TextView)itemView.findViewById(R.id.course_code);
@@ -28,15 +32,20 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
             courseCredits = (TextView)itemView.findViewById(R.id.course_credits);
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(activity,CourseDetailsActivity.class);
+                    intent.putExtra("courseCode",courseCode.getText().toString());
+                    activity.startActivity(intent);
+                    //Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
                 }
             });
         }
     }
     CourseList courseList;
+    Activity parentActivity;
 
-    public CourseListAdapter(CourseList list){
+    public CourseListAdapter(CourseList list,Activity activity){
         this.courseList = list;
+        this.parentActivity = activity;
     }
     @Override
     public int getItemCount() {
@@ -45,7 +54,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     @Override
     public CourseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_course_list, viewGroup, false);
-        CourseViewHolder courseViewHolder = new CourseViewHolder(v);
+        CourseViewHolder courseViewHolder = new CourseViewHolder(v,parentActivity);
         return courseViewHolder;
     }
     @Override

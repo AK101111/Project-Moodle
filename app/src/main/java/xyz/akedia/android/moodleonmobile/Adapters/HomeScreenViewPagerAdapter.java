@@ -1,16 +1,14 @@
-package xyz.akedia.android.moodleonmobile;
+package xyz.akedia.android.moodleonmobile.Adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import xyz.akedia.android.moodleonmobile.Tabs.TabCourseList;
-import xyz.akedia.android.moodleonmobile.Tabs.TabGrades;
-import xyz.akedia.android.moodleonmobile.Tabs.TabNotifications;
+import xyz.akedia.android.moodleonmobile.Course;
+import xyz.akedia.android.moodleonmobile.CourseList;
+import xyz.akedia.android.moodleonmobile.Fragments.TabCourseList;
+import xyz.akedia.android.moodleonmobile.Fragments.TabGrades;
+import xyz.akedia.android.moodleonmobile.Fragments.TabNotifications;
 
 /**
  * Created by ashish on 15/2/16.
@@ -19,8 +17,6 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
     String[] Titles; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
     int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
 
-
-    // Build a Constructor and assign the passed Values to appropriate values in the class
     public HomeScreenViewPagerAdapter(FragmentManager fm) {
         super(fm);
 
@@ -55,8 +51,7 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
         switch(position){
             case 0:
                 TabCourseList tabCourseList = new TabCourseList();
-                //put a List<String[]> here
-                // String[] contains course code,name
+                //put the CourseList here
                 tabCourseList.setVals(getDummyCourseList());
                 fragment = tabCourseList;
                 break;
@@ -70,15 +65,13 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
         return fragment;
     }
 
-    // This method return the titles for the Tabs in the Tab Strip
-
+    // This method returns the titles for the Tabs in the Tab Strip
     @Override
     public CharSequence getPageTitle(int position) {
         return Titles[position];
     }
 
-    // This method return the Number of tabs for the tabs Strip
-
+    // This method returns the Number of tabs for the tabs Strip
     @Override
     public int getCount() {
         return NumbOfTabs;
