@@ -1,7 +1,6 @@
 package xyz.akedia.android.moodleonmobile;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,8 +14,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
+
+import xyz.akedia.android.moodleonmobile.Adapters.HomeScreenViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -89,17 +91,25 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_settings) {
+            showSettings();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
     private void showCalendar(){
-//        Intent intent = new Intent(MainActivity.this,EventActivity.class);
-//        startActivity(intent);
-        final Dialog dialog = new Dialog(MainActivity.this,R.style.DialogSlideAnim);
+        Dialog dialog = new Dialog(MainActivity.this,R.style.DialogSlideAnim);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_event_viewer);
+        setDialogLayoutParams(dialog);
+    }
+    private void showSettings(){
+        Dialog dialog = new Dialog(MainActivity.this,R.style.DialogSlideAnimSmall);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_dialog_settings);
+        setDialogLayoutParams(dialog);
+    }
+    private void setDialogLayoutParams(Dialog dialog){
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
