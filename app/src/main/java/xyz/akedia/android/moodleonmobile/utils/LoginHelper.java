@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
+import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
 import xyz.akedia.android.moodleonmobile.config.ApiUrls;
 
 /**
@@ -21,17 +22,22 @@ public class LoginHelper {
     private final String loginUrl;
     private final RequestQueue requestQueue;
     private final String requestTag;
-    private LoginResponseHandler loginResponseHandler;
+    private final LoginResponseHandler loginResponseHandler;
+
     public interface LoginResponseHandler {
-        void manageCookie(String cookie);
         void onSuccess(JSONObject user);
         void onFailure();
         void onError(Exception exception);
     }
-    public LoginHelper(String baseUrl,String username, String password, RequestQueue requestQueue, LoginResponseHandler loginResponseHandler) {
-        this.loginUrl = baseUrl + ApiUrls.LOGIN + String.format("?userid=%s&password=%s",username,password);
+
+    public void manageCookie(String cookie) {
+        MoodleOnMobile.App.setCookie(cookie);
+    }
+
+    public LoginHelper(String username, String password, LoginResponseHandler loginResponseHandler) {
+        this.loginUrl = MoodleOnMobile.App.getMoodleUrl() + ApiUrls.LOGIN + String.format("?userid=%s&password=%s",username,password);
         this.requestTag = String.format("Login{uid=%s}",username);
-        this.requestQueue = requestQueue;
+        this.requestQueue = MoodleOnMobile.App.getRequestQueue();
         this.loginResponseHandler = loginResponseHandler;
     }
 
@@ -59,10 +65,9 @@ public class LoginHelper {
             JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.GET,loginUrl,null,responseListener,errorListener){
                 @Override
                 protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
-                    Log.d(TAG, "Headers from login" + response.headers.toString());
                     String cookie =  response.headers.get("Set-Cookie");
-                    Log.d(TAG,"cookie:"+cookie);
-                    loginResponseHandler.manageCookie(cookie);
+                    Log.d(TAG,"Login cookie : "+cookie);
+                    manageCookie(cookie);
                     return super.parseNetworkResponse(response);
                 }
             };

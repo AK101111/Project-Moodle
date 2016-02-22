@@ -13,13 +13,17 @@ import xyz.akedia.android.moodleonmobile.model.User;
  */
 public class MoodleOnMobile extends Application{
 
-    public static RequestQueue requestQueue;
+    public static MoodleOnMobile App;
+    private static RequestQueue requestQueue;
+    public static User user;
 
+    public RequestQueue getRequestQueue() {
+        return requestQueue;
+    }
     /**
      * Gets the moodle url
      * @return Moodle Url
      */
-    public static User userModel;
     public String getMoodleUrl() {
         return PreferenceManager.getDefaultSharedPreferences(this).getString("moodle_url","NULL");
     }
@@ -32,7 +36,7 @@ public class MoodleOnMobile extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+        App = this;
         requestQueue = Volley.newRequestQueue(this);
-        userModel = new User();
     }
 }
