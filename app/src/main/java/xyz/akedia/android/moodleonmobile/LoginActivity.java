@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.VolleyError;
-
 import org.json.JSONObject;
 
 import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
@@ -47,6 +45,10 @@ public class LoginActivity extends AppCompatActivity {
         appContext = (MoodleOnMobile) getApplicationContext();
     }
 
+    private void saveLoginCookie(String cookie) {
+        appContext.setCookie(cookie);
+    }
+
     private void onLoginSuccess(JSONObject userData) {
         try {
             Log.d(TAG,userData.toString(4));
@@ -73,7 +75,12 @@ public class LoginActivity extends AppCompatActivity {
 
     public void doLogin(View view) {
         //TODO check if all data is filled and only then allow login
-        LoginHelper.ResponseHandler responseHandler = new LoginHelper.ResponseHandler() {
+        LoginHelper.LoginResponseHandler loginResponseHandler = new LoginHelper.LoginResponseHandler() {
+            @Override
+            public void manageCookie(String cookie) {
+                saveLoginCookie(cookie);
+            }
+
             @Override
             public void onSuccess(JSONObject userData) {
                 LoginActivity.this.onLoginSuccess(userData);
@@ -89,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.onLoginError(exception);
             }
         };
-        LoginHelper loginHelper = new LoginHelper(appContext.getMoodleUrl(),getFilledUsername(),getFilledPassword(),appContext.requestQueue,responseHandler);
+        LoginHelper loginHelper = new LoginHelper(appContext.getMoodleUrl(),getFilledUsername(),getFilledPassword(),appContext.requestQueue, loginResponseHandler);
         loginHelper.sendLoginRequest();
         //TODO cancel login requests on back button pressed.
     }

@@ -23,6 +23,12 @@ public class MoodleOnMobile extends Application{
     public String getMoodleUrl() {
         return PreferenceManager.getDefaultSharedPreferences(this).getString("moodle_url","NULL");
     }
+    public void setCookie(String cookie) {
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putString("cookie",cookie).commit();
+    }
+    public String getCookie() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getString("cookie","NULL");
+    }
     @Override
     public void onCreate() {
         super.onCreate();
