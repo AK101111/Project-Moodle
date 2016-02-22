@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="action_calendar">Calendar</string>
     <string name="title_activity_event">EventActivity</string>
+    <string name="title_activity_course_info">CourseInfoActivity</string>
+    <string name="title_activity_thread_details_fragment">ThreadDetailsFragment</string>
 </resources>
