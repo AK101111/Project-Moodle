@@ -1,5 +1,6 @@
 package xyz.akedia.android.moodleonmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -104,6 +105,10 @@ public class LoginActivity extends AppCompatActivity {
         LoginHelper loginHelper = new LoginHelper(getFilledUsername(),getFilledPassword(), loginResponseHandler);
         loginHelper.sendLoginRequest();
         //TODO cancel login requests on back button pressed.
+
+        Intent i = new Intent(this,MainActivity.class);
+        startActivity(i);
+        LoginActivity.this.finish();
     }
 
 }
