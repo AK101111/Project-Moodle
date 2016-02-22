@@ -1,4 +1,4 @@
-package xyz.akedia.android.moodleonmobile.Tabs;
+package xyz.akedia.android.moodleonmobile.Fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

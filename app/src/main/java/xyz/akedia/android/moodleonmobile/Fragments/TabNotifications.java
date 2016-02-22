@@ -1,4 +1,4 @@
-package xyz.akedia.android.moodleonmobile.Tabs;
+package xyz.akedia.android.moodleonmobile.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
