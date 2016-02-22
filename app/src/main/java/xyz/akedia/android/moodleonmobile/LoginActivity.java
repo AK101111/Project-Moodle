@@ -61,8 +61,11 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onLoginSuccess(JSONObject userData) {
         try {
-            Log.d(TAG,userData.toString(4));
+            Log.d(TAG, userData.toString(4));
             saveUserData(userData);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,10 +108,6 @@ public class LoginActivity extends AppCompatActivity {
         LoginHelper loginHelper = new LoginHelper(getFilledUsername(),getFilledPassword(), loginResponseHandler);
         loginHelper.sendLoginRequest();
         //TODO cancel login requests on back button pressed.
-
-        Intent i = new Intent(this,MainActivity.class);
-        startActivity(i);
-        LoginActivity.this.finish();
     }
 
 }
