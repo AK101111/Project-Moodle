@@ -13,11 +13,11 @@ import android.widget.Toast;
 import org.json.JSONObject;
 
 import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
+import xyz.akedia.android.moodleonmobile.model.User;
 import xyz.akedia.android.moodleonmobile.utils.LoginHelper;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getName();
-    private static MoodleOnMobile appContext;
 
     public String getFilledUsername() {
         return ((EditText) findViewById(R.id.username_entry)).getText().toString();
@@ -42,12 +42,26 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Android added it. Node idea why. //TODO figure why?
-        appContext = (MoodleOnMobile) getApplicationContext();
+    }
+
+    private void saveUserData(JSONObject userData) {
+        try {
+            String firstName = userData.getString("first_name");
+            String lastName = userData.getString("last_name");
+            String userName = userData.getString("username");
+            String entryNumber = userData.getString("entry_no");
+            String email = userData.getString("email");
+            boolean isStudent = (userData.getInt("type_") == 0);
+            MoodleOnMobile.setUser(new User(firstName,lastName,userName,entryNumber,email,isStudent));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void onLoginSuccess(JSONObject userData) {
         try {
             Log.d(TAG,userData.toString(4));
+            saveUserData(userData);
         } catch (Exception e) {
             e.printStackTrace();
         }

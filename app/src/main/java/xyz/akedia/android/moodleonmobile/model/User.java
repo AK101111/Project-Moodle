@@ -17,6 +17,13 @@ import xyz.akedia.android.moodleonmobile.utils.Utils;
  * Created by akedia on 14/02/16.
  */
 public class User implements Serializable {
+    private String firstName;
+    private String lastName;
+    private String entryNumber;
+    private String username;
+    private String email;
+    private boolean isStudent;
+
     private Courses[] courses;
     private int currSem;
     private int currYear;
@@ -24,7 +31,16 @@ public class User implements Serializable {
     private LinkedHashMap userDetails;
     private Notifications[] notifications;
 
-    public void User(){};
+//    public User() {};
+
+    public User(String firstName, String lastName, String username, String entryNumber, String email, boolean isStudent) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.entryNumber = entryNumber;
+        this.email = email;
+        this.isStudent = isStudent;
+    }
 
     public void flush(){
         courses = null;

@@ -37,7 +37,7 @@ public class LoginHelper {
     public LoginHelper(String username, String password, LoginResponseHandler loginResponseHandler) {
         this.loginUrl = MoodleOnMobile.App.getMoodleUrl() + ApiUrls.LOGIN + String.format("?userid=%s&password=%s",username,password);
         this.requestTag = String.format("Login{uid=%s}",username);
-        this.requestQueue = MoodleOnMobile.App.getRequestQueue();
+        this.requestQueue = MoodleOnMobile.getRequestQueue();
         this.loginResponseHandler = loginResponseHandler;
     }
 
