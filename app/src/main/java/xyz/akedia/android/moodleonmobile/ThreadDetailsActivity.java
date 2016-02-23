@@ -16,7 +16,7 @@ import android.view.WindowManager;
 
 public class ThreadDetailsActivity extends AppCompatActivity {
 
-    String threadTitle;
+    public static String threadTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

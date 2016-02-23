@@ -13,6 +13,7 @@ import java.util.List;
 
 import xyz.akedia.android.moodleonmobile.R;
 import xyz.akedia.android.moodleonmobile.ThreadDetailsActivity;
+import xyz.akedia.android.moodleonmobile.model.Thread;
 
 /**
  * Created by ashish on 21/2/16.
@@ -39,16 +40,16 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
             });
         }
     }
-    List<String[]> threadList;
+    Thread[] threadList;
     Activity parentActivity;
 
-    public CourseThreadAdapter(List<String[]> list,Activity activity){
+    public CourseThreadAdapter(Thread[] list,Activity activity){
         this.threadList = list;
         this.parentActivity = activity;
     }
     @Override
     public int getItemCount() {
-        return threadList.size();
+        return threadList.length;
     }
     @Override
     public CourseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -58,10 +59,10 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
     }
     @Override
     public void onBindViewHolder(CourseViewHolder courseViewHolder, int i) {
-        String[] thread = threadList.get(i);
-        courseViewHolder.threadTitle.setText(thread[0]);
-        courseViewHolder.threadSummary.setText(thread[1]);
-        courseViewHolder.threadDate.setText(thread[2]);
+        Thread thread = threadList[i];
+        courseViewHolder.threadTitle.setText(thread.getTitle());
+        courseViewHolder.threadSummary.setText(thread.getDescription());
+        courseViewHolder.threadDate.setText(thread.getCreatedAt());
     }
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
