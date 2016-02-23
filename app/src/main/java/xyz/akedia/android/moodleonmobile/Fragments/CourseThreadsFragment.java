@@ -32,7 +32,7 @@ public class CourseThreadsFragment extends Fragment {
     }
 
     private void init(View view){
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.courseList);
+        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.threadList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);

@@ -7,12 +7,20 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import xyz.akedia.android.moodleonmobile.Adapters.CommentAdapter;
 
 public class ThreadDetailsActivity extends AppCompatActivity {
 
@@ -23,17 +31,26 @@ public class ThreadDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_thread_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         threadTitle = getIntent().getStringExtra("courseCode");
-        toolbar.setTitle(threadTitle);
+        toolbar.setTitle("Thread details");
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        init();
+    }
+    private void init(){
+        RecyclerView commentList = (RecyclerView)findViewById(R.id.comment_list);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        commentList.setHasFixedSize(true);
+        commentList.setLayoutManager(llm);
+        View headerView = getLayoutInflater().inflate(R.layout.layout_thread_view,null,false);
+        CommentAdapter commentAdapter = new CommentAdapter(getDummyComments(),headerView);
+        commentList.setAdapter(commentAdapter);
+    }
+    private List<Comment> getDummyComments(){
+        List<Comment> comments = new ArrayList<>();
+        for(int i = 0; i < 12; i++){
+            Comment comment = new Comment("This is a sample comment!","2 days, 9 hours ago","Ashish Ranjan");
+            comments.add(comment);
+        }
+        return comments;
     }
 
 }

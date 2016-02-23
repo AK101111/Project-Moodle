@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.CardView
+        android:id="@+id/thread_details_layout"
+        app:cardBackgroundColor="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="4dp">
+        <RelativeLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/thread_title"
+                android:layout_marginRight="10dp"
+                android:textSize="18sp"
+                android:textColor="#363636"
+                android:text="Thread title thread title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/thread_description"
+                android:layout_below="@id/thread_title"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="#727272"
+                android:text="Thread description,thread description,thread description,thread description,thread description\nthread descriptionthread description.thread descriptionthread description.thread description,thread description."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:id="@+id/divider"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/thread_description"
+                android:background="#c7c7c7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <TextView
+                android:id="@+id/created_time_notice"
+                android:text="Created 12 Jan '16 by Ashish Ranjan"
+                android:gravity="right"
+                android:textColor="#b7b7b7"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/divider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/updated_time_notice"
+                android:text="Last updated 12 Jan '16 by Ashish Ranjan"
+                android:gravity="right"
+                android:textColor="#b7b7b7"
+                android:layout_marginTop="0dp"
+                android:layout_below="@id/created_time_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/comment_indicator"
+        android:text="Comments"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
