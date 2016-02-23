@@ -17,6 +17,7 @@ import xyz.akedia.android.moodleonmobile.utils.Utils;
  * Created by akedia on 14/02/16.
  */
 public class User implements Serializable {
+    private int userId;
     private String firstName;
     private String lastName;
     private String entryNumber;
@@ -33,7 +34,8 @@ public class User implements Serializable {
 
 //    public User() {};
 
-    public User(String firstName, String lastName, String username, String entryNumber, String email, boolean isStudent) {
+    public User(int userId, String firstName, String lastName, String username, String entryNumber, String email, boolean isStudent) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;

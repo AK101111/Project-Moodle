@@ -15,7 +15,8 @@ import org.json.JSONObject;
 
 import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
 import xyz.akedia.android.moodleonmobile.model.User;
-import xyz.akedia.android.moodleonmobile.utils.LoginHelper;
+import xyz.akedia.android.moodleonmobile.network.LoginHelper;
+import xyz.akedia.android.moodleonmobile.utils.ParseResponse;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = LoginActivity.class.getName();
@@ -47,13 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void saveUserData(JSONObject userData) {
         try {
-            String firstName = userData.getString("first_name");
-            String lastName = userData.getString("last_name");
-            String userName = userData.getString("username");
-            String entryNumber = userData.getString("entry_no");
-            String email = userData.getString("email");
-            boolean isStudent = (userData.getInt("type_") == 0);
-            MoodleOnMobile.setUser(new User(firstName,lastName,userName,entryNumber,email,isStudent));
+            MoodleOnMobile.setUser(ParseResponse.parseUserData(userData));
         } catch (Exception e) {
             e.printStackTrace();
         }

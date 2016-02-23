@@ -1,4 +1,4 @@
-package xyz.akedia.android.moodleonmobile.utils;
+package xyz.akedia.android.moodleonmobile.network;
 
 import android.util.Log;
 
