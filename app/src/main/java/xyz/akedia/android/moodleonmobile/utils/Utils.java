@@ -11,7 +11,7 @@ import java.util.LinkedHashMap;
 import xyz.akedia.android.moodleonmobile.model.Assignment;
 //import xyz.akedia.android.moodleonmobile.model.Courses;
 import xyz.akedia.android.moodleonmobile.model.Grades;
-import xyz.akedia.android.moodleonmobile.model.Notifications;
+//import xyz.akedia.android.moodleonmobile.model.Notifications;
 
 /**
  * * Created by arnavkansal on 15/02/16.

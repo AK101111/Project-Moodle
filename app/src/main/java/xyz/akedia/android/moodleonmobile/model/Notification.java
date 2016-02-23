@@ -1,14 +1,12 @@
 package xyz.akedia.android.moodleonmobile.model;
 
-import android.app.Notification;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by arnavkansal on 21/02/16.
  */
-public class Notifications {
+public class Notification {
     private String user_id;
     private int is_seen;
     private String created_at;

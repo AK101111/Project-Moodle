@@ -12,8 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import xyz.akedia.android.moodleonmobile.config.ApiUrls;
-import xyz.akedia.android.moodleonmobile.model.Notifications;
+//import xyz.akedia.android.moodleonmobile.config.ApiUrls;
+//import xyz.akedia.android.moodleonmobile.model.Notifications;
 import xyz.akedia.android.moodleonmobile.model.User;
 import xyz.akedia.android.moodleonmobile.utils.Utils;
 

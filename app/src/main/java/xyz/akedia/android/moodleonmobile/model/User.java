@@ -1,6 +1,5 @@
 package xyz.akedia.android.moodleonmobile.model;
 
-import android.app.Notification;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,13 +26,13 @@ public class User implements Serializable {
 
     private int currentSem;
     private ArrayList<Course> courses;
+    private ArrayList<Notification> notifications;
 
 //    private Courses[] courses;
     private int currSem;
     private int currYear;
     private String tab;
     private LinkedHashMap userDetails;
-    private Notifications[] notifications;
 
 //    public User() {};
 
@@ -88,6 +87,15 @@ public class User implements Serializable {
 
     public ArrayList<Course> getCourseList() {
         return courses;
+    }
+
+    public ArrayList<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(ArrayList<Notification> newNotifications) {
+        this.notifications = newNotifications;
+        onUpdate();
     }
 
 //    public void flush(){

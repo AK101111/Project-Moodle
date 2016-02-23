@@ -46,6 +46,25 @@ public class LoginActivity extends AppCompatActivity {
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Android added it. Node idea why. //TODO figure why?
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(checkSavedCredentials()) {
+            performAutoLogin();
+        }
+    }
+
+    private boolean checkSavedCredentials() {
+        return MoodleOnMobile.App.isLoginCredentialsSaved();
+    }
+    private void performAutoLogin() {
+        String userName = MoodleOnMobile.App.getLoginUsername();
+        String password = MoodleOnMobile.App.gettLoginPassword();
+        if(!userName.isEmpty() && !password.isEmpty()) {
+            performLogin(userName,password);
+        }
+    }
+
     private void saveUserData(JSONObject userData) {
         try {
             MoodleOnMobile.setUser(ParseResponse.parseUserData(userData));
@@ -70,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onLoginFailure() {
         Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
-        Log.d(TAG,"Login failed");
+        Log.d(TAG, "Login failed");
         //TODO
     }
 
@@ -81,8 +100,7 @@ public class LoginActivity extends AppCompatActivity {
         //TODO
     }
 
-
-    public void doLogin(View view) {
+    private void performLogin(String userName, String password) {
         //TODO check if all data is filled and only then allow login
         LoginHelper.LoginResponseHandler loginResponseHandler = new LoginHelper.LoginResponseHandler() {
             @Override
@@ -100,9 +118,14 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.onLoginError(exception);
             }
         };
-        LoginHelper loginHelper = new LoginHelper(getFilledUsername(),getFilledPassword(), loginResponseHandler);
+        LoginHelper loginHelper = new LoginHelper(userName, password, loginResponseHandler);
         loginHelper.sendLoginRequest();
         //TODO cancel login requests on back button pressed.
+    }
+
+    public void doLogin(View view) {
+        MoodleOnMobile.App.saveLoginCredentials(getFilledUsername(),getFilledPassword());
+        performLogin(getFilledUsername(),getFilledPassword());
     }
 
 }
