@@ -4,5 +4,5 @@
         android:title="Moodle Url"
         android:summary="Set the moodle url"
         android:key="moodle_url"
-        android:defaultValue="192.168.0.100:8000"/>
+        android:defaultValue="http://192.168.0.100:8000"/>
 </PreferenceScreen>

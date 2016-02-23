@@ -48,7 +48,7 @@ public class ParseResponse {
         return courses;
     }
 
-    public static Notification parseNotification(JSONObject notificationData) {
-
-    }
+//    public static Notification parseNotification(JSONObject notificationData) {
+//
+//    }
 }
