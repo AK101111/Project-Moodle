@@ -52,6 +52,9 @@ public class Course {
     public String getDescription() {
         return description;
     }
+    public int getCredits() {
+        return credits;
+    }
     public CourseScheme getCourseScheme() {
         return courseScheme;
     }

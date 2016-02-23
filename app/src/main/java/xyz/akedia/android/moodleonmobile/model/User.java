@@ -81,6 +81,7 @@ public class User implements Serializable {
     }
 
     public void setCourseList(ArrayList<Course> courseList) {
+        //improve
         this.courses = courseList;
         onUpdate();
     }
