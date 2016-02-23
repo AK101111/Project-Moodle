@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import xyz.akedia.android.moodleonmobile.model.Course;
 import xyz.akedia.android.moodleonmobile.model.CourseScheme;
+import xyz.akedia.android.moodleonmobile.model.Notification;
 import xyz.akedia.android.moodleonmobile.model.User;
 
 /**
@@ -45,5 +46,9 @@ public class ParseResponse {
             courses.add(parseCourseData(courseList.getJSONObject(i)));
         }
         return courses;
+    }
+
+    public static Notification parseNotification(JSONObject notificationData) {
+
     }
 }
