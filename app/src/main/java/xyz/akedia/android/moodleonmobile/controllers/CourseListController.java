@@ -30,6 +30,7 @@ public class CourseListController {
                 public void onSuccess(int currentSem, JSONArray courseList, JSONObject user) {
                     try {
                         ArrayList<Course> updatedList = ParseResponse.parseCourseList(courseList);
+                        handler.onUpdate(CourseList.fromModel(updatedList));
                         handler.finishSyncWait();
                     } catch (Exception e) {
                         e.printStackTrace();

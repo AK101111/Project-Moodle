@@ -75,25 +75,13 @@ public class CourseListFetcher {
     }
 
     public CourseListFetcher(CourseListResponseHandler courseListResponseHandler){
-//        courseListUrl = MoodleOnMobile.App.getMoodleUrl() + ApiUrls.COURSELIST;
-//        courseListUrl = "http://192.168.0.100:9000/courses/list.json";
-//        courseListUrl = "http://192.168.0.100:8000/courses/list.json";
-        courseListUrl = "http://192.168.0.100:8000/" + "/courses/list.json";
-        Log.d(TAG,"moodleUrl is http://192.168.0.100:8000/ :" + MoodleOnMobile.App.getMoodleUrl().equals("http://192.168.0.100:8000/"));
-        Log.d(TAG,"other part is /courses/list.json : " + ApiUrls.COURSELIST.equals("/courses/list.json"));
-        Log.d(TAG,"other part is : " + ApiUrls.COURSELIST);
-        String courseListUrl2 = MoodleOnMobile.App.getMoodleUrl() + ApiUrls.COURSELIST;
-        Log.d(TAG,"other url is :" + courseListUrl2);
-        Log.d(TAG,"Both url same : " + courseListUrl.equals(courseListUrl2));
+        courseListUrl = MoodleOnMobile.App.getMoodleUrl() + ApiUrls.COURSELIST;
         requestQueue = MoodleOnMobile.getRequestQueue();
         responseHandler = courseListResponseHandler;
         cookie = MoodleOnMobile.App.getCookie();
     }
 
     public void getCoursesList(){
-        Log.d(TAG,"course list url : " + courseListUrl);
-        cookie = cookie.split(";")[0];
-        Log.d(TAG,"cookie used : " + cookie);
         Response.Listener<JSONObject> responseListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -125,22 +113,6 @@ public class CourseListFetcher {
                     return headers;
                 }
             };
-//            StringRequest courseListRequest = new StringRequest(Request.Method.GET, courseListUrl, new Response.Listener<String>() {
-//                @Override
-//                public void onResponse(String response) {
-//                    Log.d(TAG,"course List response : " + response);
-//                }
-//            },errorListener) {
-//                @Override
-//                protected Response<String> parseNetworkResponse(NetworkResponse response) {
-//                    Log.d(TAG,"raw network response : " + response.toString());
-//                    Log.d(TAG,"response headers : " + response.headers);
-//                    Log.d(TAG,"response data : " + response.data);
-//                    String resData = new String(response.data);
-//                    Log.d(TAG,"response data as string : " + resData);
-//                    return super.parseNetworkResponse(response);
-//                }
-//            };
             requestQueue.add(courseListRequest);
         } catch (Exception e) {
             responseHandler.onError(e);

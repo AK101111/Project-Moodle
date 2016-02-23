@@ -50,9 +50,16 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
         this.courseList = list;
         this.parentActivity = activity;
     }
+
+    public void updateCourseList(CourseList newCourseList) {
+        this.courseList = newCourseList;
+    }
+
     @Override
     public int getItemCount() {
 //        Log.d(TAG,"Adapter getItemCount = " + courseList.courseCount());
+        if(courseList == null)
+            return 0;
         return courseList.courseCount();
     }
     @Override
@@ -64,11 +71,12 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     @Override
     public void onBindViewHolder(CourseViewHolder courseViewHolder, int i) {
         Course course = courseList.getCourse(i);
-        courseViewHolder.courseCode.setText(course.courseCode);
+        courseViewHolder.courseCode.setText(course.courseCode.toUpperCase());
         courseViewHolder.courseName.setText(course.courseName);
         courseViewHolder.courseDescription.setText(course.courseDescription);
         courseViewHolder.courseCredits.setText(course.courseCredits);
     }
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);

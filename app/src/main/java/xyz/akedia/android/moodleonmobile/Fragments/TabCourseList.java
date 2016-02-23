@@ -16,6 +16,7 @@ import xyz.akedia.android.moodleonmobile.Adapters.CourseListAdapter;
 import xyz.akedia.android.moodleonmobile.R;
 import xyz.akedia.android.moodleonmobile.controllers.AsyncResponseHandler;
 import xyz.akedia.android.moodleonmobile.controllers.CourseListController;
+import xyz.akedia.android.moodleonmobile.controllers.SyncResponseHandler;
 
 /**
  * Created by ashish on 15/2/16.
@@ -38,10 +39,38 @@ public class TabCourseList extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
-        CourseListAdapter adapter = new CourseListAdapter(courseList,getActivity());
-        recyclerView.setAdapter(adapter);
+
+        final CourseListAdapter adapter = new CourseListAdapter(null,getActivity());
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark,R.color.colorAccent);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent);
+
+        CourseList initialCourseList = CourseListController.getCourseListSynchronously(new SyncResponseHandler() {
+            @Override
+            public void onSyncWait() {
+                swipeRefreshLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(true);
+                    }
+                });
+            }
+
+            @Override
+            public void finishSyncWait() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+
+            @Override
+            public void onUpdate(CourseList updatedCourseList) {
+                adapter.updateCourseList(updatedCourseList);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+        adapter.updateCourseList(initialCourseList);
+        recyclerView.setAdapter(adapter);
+
+//        recyclerView.setAdapter(adapter);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -51,7 +80,8 @@ public class TabCourseList extends Fragment {
                     @Override
                     public void onResponse(final CourseList newCourseList) {
 //                        swipeRefreshLayout.setRefreshing(true);
-                        CourseListAdapter adapter = new CourseListAdapter(newCourseList,getActivity());
+//                        CourseListAdapter adapter = new CourseListAdapter(newCourseList,getActivity());
+                        adapter.updateCourseList(newCourseList);
                         recyclerView.setAdapter(adapter);
 //                        swipeRefreshLayout.setRefreshing(false);
                     }
