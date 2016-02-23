@@ -33,6 +33,7 @@ public class Course {
     public Grades[] grades;
     public Assignment[] assignment;
     private courseResources[] resources;
+    public Thread[] threads;
 
     public Course(String code, String name, String description, int credits, int id, String ltp) {
         this.code = code;
@@ -75,6 +76,8 @@ public class Course {
     public void set_assignment(Assignment[] assignmentList){
         assignment = assignmentList;
     }
+
+    public void set_thread(Thread[] threadsList){ threads = threadsList;}
 //    public void update_assignment(JSONObject updated) throws JSONException{
 //        String assgnCode = updated.getString("id");
 //        for(int i=0; i<assignment.length; ++i){
