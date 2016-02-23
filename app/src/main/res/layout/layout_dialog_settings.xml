@@ -76,6 +76,7 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
             <Button
+                android:id="@+id/logout_button"
                 android:textColor="#ffffff"
                 android:background="@drawable/button_backg"
                 android:text="Log out"

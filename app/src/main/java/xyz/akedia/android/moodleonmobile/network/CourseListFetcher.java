@@ -66,7 +66,7 @@ public class CourseListFetcher {
     private final String courseListUrl;
     private final RequestQueue requestQueue;
     private final CourseListResponseHandler responseHandler;
-    private String cookie;
+    private final String cookie;
 
     public interface CourseListResponseHandler{
         void onSuccess(int currentSem, JSONArray courseList, JSONObject user);

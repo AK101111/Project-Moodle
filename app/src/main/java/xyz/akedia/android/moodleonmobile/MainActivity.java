@@ -1,6 +1,7 @@
 package xyz.akedia.android.moodleonmobile;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,7 +19,10 @@ import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import org.json.JSONObject;
+
 import xyz.akedia.android.moodleonmobile.Adapters.HomeScreenViewPagerAdapter;
+import xyz.akedia.android.moodleonmobile.uiElements.UserDetailsDialog;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         String [] titles = {"Courses","Notifications","Grades"};
         pagerAdapter.setVals(titles,titles.length);
         pager.setAdapter(pagerAdapter);
-        pager.setOffscreenPageLimit(titles.length-1);
+        pager.setOffscreenPageLimit(titles.length - 1);
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(pager);
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if(position == 1)
+                if (position == 1)
                     fab.show();
                 else
                     fab.hide();
@@ -103,11 +107,29 @@ public class MainActivity extends AppCompatActivity {
         dialog.setContentView(R.layout.layout_dialog_event_viewer);
         setDialogLayoutParams(dialog);
     }
+
+    private void onUserLogout() {
+        Intent i = new Intent(this,StartActivity.class);
+        //TODO clear user object
+        startActivity(i);
+        MainActivity.this.finish();
+    }
+
     private void showSettings(){
         Dialog dialog = new Dialog(MainActivity.this,R.style.DialogSlideAnimSmall);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_settings);
         setDialogLayoutParams(dialog);
+        new UserDetailsDialog(dialog, new UserDetailsDialog.LogoutHandler() {
+            @Override
+            public void onLogout(JSONObject logoutResponse) {
+                onUserLogout();
+            }
+            @Override
+            public void onError(Exception e) {
+                //TODO //case when logout unsucessfull
+            }
+        }).setUpDialog();
     }
     private void setDialogLayoutParams(Dialog dialog){
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

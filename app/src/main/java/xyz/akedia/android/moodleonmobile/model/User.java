@@ -47,6 +47,29 @@ public class User implements Serializable {
         this.isStudent = isStudent;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+    public String getFirstName() {
+        return firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public String getEntryNumber() {
+        return entryNumber;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public int getCurrentSem() {
+        return currentSem;
+    }
+
+
     //called when ever the user object is updated
     synchronized public void onUpdate() {
         //TODO

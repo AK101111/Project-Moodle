@@ -30,6 +30,10 @@ public class CourseListController {
                 public void onSuccess(int currentSem, JSONArray courseList, JSONObject user) {
                     try {
                         ArrayList<Course> updatedList = ParseResponse.parseCourseList(courseList);
+
+                        MoodleOnMobile.getUser().setCourseList(updatedList);
+                        MoodleOnMobile.getUser().setCurrentSem(currentSem);
+
                         handler.onUpdate(CourseList.fromModel(updatedList));
                         handler.finishSyncWait();
                     } catch (Exception e) {
@@ -58,6 +62,10 @@ public class CourseListController {
                 public void onSuccess(int currentSem, JSONArray courseList, JSONObject user) {
                     try {
                         ArrayList<Course> updatedList = ParseResponse.parseCourseList(courseList);
+
+                        MoodleOnMobile.getUser().setCourseList(updatedList);
+                        MoodleOnMobile.getUser().setCurrentSem(currentSem);
+
                         handler.onUpdate(CourseList.fromModel(updatedList));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -87,6 +95,10 @@ public class CourseListController {
                     Log.d(TAG,"got courseList : " + courseList.toString());
                     ArrayList<Course> updatedList = ParseResponse.parseCourseList(courseList);
                     Log.d(TAG,"array list size : " + updatedList.size());
+
+                    MoodleOnMobile.getUser().setCourseList(updatedList);
+                    MoodleOnMobile.getUser().setCurrentSem(currentSem);
+
                     handler.onResponse(CourseList.fromModel(updatedList));
                     handler.finishWait();
                 } catch (Exception e) {
