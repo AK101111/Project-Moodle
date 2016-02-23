@@ -28,6 +28,10 @@
                 android:layout_centerVertical="true"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
+            <LinearLayout
+                android:focusableInTouchMode="true"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
             <EditText
                 android:layout_marginRight="10dp"
                 android:textColor="#363636"
