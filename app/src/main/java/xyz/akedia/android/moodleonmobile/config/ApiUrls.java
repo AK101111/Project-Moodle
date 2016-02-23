@@ -6,7 +6,7 @@ package xyz.akedia.android.moodleonmobile.config;
 public class ApiUrls {
     public static final String LOGIN = "/default/login.json";
     public final static String LOGOUT = "​/default/logout.json";
-    public final static String COURSES = "​/courses/list.json";
+    public final static String COURSELIST = "​/courses/list.json";
     public final static String NOTIFICATIONS = "​/default/notifications.json";
     public final static String GRADES = "​/default/grades.json"; // /courses/course.json/<coursecode>/grades
     public final static String COURSE_BASE = "​/courses/course.json/";        //<coursecode>/assignments";

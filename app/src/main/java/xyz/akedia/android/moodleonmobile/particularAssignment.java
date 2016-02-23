@@ -29,33 +29,33 @@ public class particularAssignment {
         user = userModel;
     }
 
-    public void getAssignment(String baseUrl, String assgnCode) {
-        assgncode = assgnCode;
-        String requestUrl = baseUrl + ApiUrls.ASSIGNMENT_BASE + assgncode;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                requestUrl,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            validateParseUpdateResponse(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // VolleyError.
-            }
-        }
-        );
-        //Log.d()
-        particularAssgnQueue.add(jsonObjectRequest);
-    }
+//    public void getAssignment(String baseUrl, String assgnCode) {
+//        assgncode = assgnCode;
+//        String requestUrl = baseUrl + ApiUrls.ASSIGNMENT_BASE + assgncode;
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+//                requestUrl,
+//                null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            validateParseUpdateResponse(response);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // VolleyError.
+//            }
+//        }
+//        );
+//        //Log.d()
+//        particularAssgnQueue.add(jsonObjectRequest);
+//    }
 
-    public void validateParseUpdateResponse(JSONObject response) throws JSONException{
-        user.updatefindAssignmentbyCode(response.getJSONObject("assignment"));
-    }
+//    public void validateParseUpdateResponse(JSONObject response) throws JSONException{
+//        user.updatefindAssignmentbyCode(response.getJSONObject("assignment"));
+//    }
 }

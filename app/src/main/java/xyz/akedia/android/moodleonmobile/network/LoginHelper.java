@@ -42,6 +42,7 @@ public class LoginHelper {
     }
 
     public void sendLoginRequest() {
+        Log.d(TAG,"login url : " + loginUrl);
         Response.Listener<JSONObject> responseListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -52,6 +53,7 @@ public class LoginHelper {
                         loginResponseHandler.onFailure();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    loginResponseHandler.onError(e);
                 }
             }
         };
@@ -65,6 +67,7 @@ public class LoginHelper {
             JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.GET,loginUrl,null,responseListener,errorListener){
                 @Override
                 protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+                    Log.d(TAG,"raw network response : " + response.toString());
                     String cookie =  response.headers.get("Set-Cookie");
                     Log.d(TAG,"Login cookie : "+cookie);
                     manageCookie(cookie);

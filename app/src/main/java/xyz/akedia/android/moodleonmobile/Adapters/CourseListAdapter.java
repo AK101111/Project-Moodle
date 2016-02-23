@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import xyz.akedia.android.moodleonmobile.R;
  * Created by ashish on 15/2/16.
  */
 public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.CourseViewHolder>{
+
+    private static final String TAG = CourseListAdapter.class.getSimpleName();
 
     public static class CourseViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
@@ -49,6 +52,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
     }
     @Override
     public int getItemCount() {
+//        Log.d(TAG,"Adapter getItemCount = " + courseList.courseCount());
         return courseList.courseCount();
     }
     @Override

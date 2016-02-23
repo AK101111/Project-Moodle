@@ -23,4 +23,15 @@ public class CourseList {
     public int courseCount(){
         return courseList.size();
     }
+
+    public static CourseList fromModel(ArrayList<xyz.akedia.android.moodleonmobile.model.Course> courseArrayList) {
+        CourseList cl = new CourseList();
+        for (xyz.akedia.android.moodleonmobile.model.Course c: courseArrayList) {
+            cl.addCourse(Course.fromModel(c));
+        }
+        return cl;
+    }
+    public void update(CourseList newCourseList) {
+        this.courseList = newCourseList.courseList;
+    }
 }

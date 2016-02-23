@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 import java.util.LinkedHashMap;
 
-import xyz.akedia.android.moodleonmobile.utils.Utils;
+//import xyz.akedia.android.moodleonmobile.utils.Utils;
 
 /**
  * Created by arnavkansal on 20/02/16.
@@ -29,7 +29,7 @@ public class Grades {
         id = grades.get("id");
     }
 
-    public void update(JSONObject jsonObject) throws JSONException{
-        set_init(Utils.jsonObjectToHashMap(jsonObject));
-    }
+//    public void update(JSONObject jsonObject) throws JSONException{
+//        set_init(Utils.jsonObjectToHashMap(jsonObject));
+//    }
 }

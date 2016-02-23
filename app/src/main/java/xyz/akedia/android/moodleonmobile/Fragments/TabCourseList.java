@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +14,14 @@ import android.view.ViewGroup;
 import xyz.akedia.android.moodleonmobile.CourseList;
 import xyz.akedia.android.moodleonmobile.Adapters.CourseListAdapter;
 import xyz.akedia.android.moodleonmobile.R;
+import xyz.akedia.android.moodleonmobile.controllers.AsyncResponseHandler;
+import xyz.akedia.android.moodleonmobile.controllers.CourseListController;
 
 /**
  * Created by ashish on 15/2/16.
  */
 public class TabCourseList extends Fragment {
+    private final static String TAG = TabCourseList.class.getSimpleName();
     CourseList courseList;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
@@ -30,7 +34,7 @@ public class TabCourseList extends Fragment {
         this.courseList = list;
     }
     private void init(View view){
-        RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.courseList);
+        final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.courseList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
@@ -42,7 +46,26 @@ public class TabCourseList extends Fragment {
             @Override
             public void onRefresh() {
                 //after refresh complete set this
-                //swipeRefreshLayout.setRefreshing(false);
+//                swipeRefreshLayout.setRefreshing(false);
+                CourseListController.getCourseListAsync(new AsyncResponseHandler() {
+                    @Override
+                    public void onResponse(final CourseList newCourseList) {
+//                        swipeRefreshLayout.setRefreshing(true);
+                        CourseListAdapter adapter = new CourseListAdapter(newCourseList,getActivity());
+                        recyclerView.setAdapter(adapter);
+//                        swipeRefreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void duringWait() {
+
+                    }
+
+                    @Override
+                    public void finishWait() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         });
     }

@@ -29,38 +29,38 @@ public class notificationsFetcher {
         notificationQueue = requestQueue;
         user = userModel;
     }
-    public void getNotifications(String baseUrl){
-        String requestUrl = baseUrl + ApiUrls.NOTIFICATIONS;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                requestUrl,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            validateParseUpdateResponse(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // VolleyError.
-            }
-        }
-        );
-        //Log.d()
-        notificationQueue.add(jsonObjectRequest);
-    }
+//    public void getNotifications(String baseUrl){
+//        String requestUrl = baseUrl + ApiUrls.NOTIFICATIONS;
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+//                requestUrl,
+//                null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            validateParseUpdateResponse(response);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // VolleyError.
+//            }
+//        }
+//        );
+//        //Log.d()
+//        notificationQueue.add(jsonObjectRequest);
+//    }
     // TODO
-    public void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException{
-        JSONArray notifications = jsonObject.getJSONArray("notifications");
-        Notifications[] updatedNotifications = new Notifications[notifications.length()];
-        for(int i=0; i<notifications.length(); ++i){
-            updatedNotifications[i] = Utils.jsonObjectToNotification(notifications.getJSONObject(i));
-        }
-        user.updateNotifications(updatedNotifications);
-    }
+//    public void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException{
+//        JSONArray notifications = jsonObject.getJSONArray("notifications");
+//        Notifications[] updatedNotifications = new Notifications[notifications.length()];
+//        for(int i=0; i<notifications.length(); ++i){
+//            updatedNotifications[i] = Utils.jsonObjectToNotification(notifications.getJSONObject(i));
+//        }
+//        user.updateNotifications(updatedNotifications);
+//    }
 }
 

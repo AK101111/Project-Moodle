@@ -92,33 +92,33 @@ public class courseAssignmentFetcher {
         courseAssignmentQueue = requestQueue;
         user = userModel;
     }
-    public void getAssignmentList(String baseUrl, String courseCode){
-        requestCode = courseCode;
-        String requestUrl = baseUrl + ApiUrls.COURSE_BASE + courseCode + "/assignments";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                requestUrl,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            validateParseUpdateResponse(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // VolleyError.
-            }
-        }
-        );
-        //Log.d()
-        courseAssignmentQueue.add(jsonObjectRequest);
-    }
+//    public void getAssignmentList(String baseUrl, String courseCode){
+//        requestCode = courseCode;
+//        String requestUrl = baseUrl + ApiUrls.COURSE_BASE + courseCode + "/assignments";
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+//                requestUrl,
+//                null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            validateParseUpdateResponse(response);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // VolleyError.
+//            }
+//        }
+//        );
+//        //Log.d()
+//        courseAssignmentQueue.add(jsonObjectRequest);
+//    }
 
-    private void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException {
-        user.update_assignmentList(requestCode, jsonObject);
-    }
+//    private void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException {
+//        user.update_assignmentList(requestCode, jsonObject);
+//    }
 }

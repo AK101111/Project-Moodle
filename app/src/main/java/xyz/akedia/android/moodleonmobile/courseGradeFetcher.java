@@ -6,18 +6,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-
 import xyz.akedia.android.moodleonmobile.config.ApiUrls;
 import xyz.akedia.android.moodleonmobile.model.User;
-import xyz.akedia.android.moodleonmobile.utils.Utils;
+import xyz.akedia.android.moodleonmobile.network.CourseListFetcher;
 
 /**
  * Created by arnavkansal on 15/02/16.
@@ -80,7 +74,7 @@ import xyz.akedia.android.moodleonmobile.utils.Utils;
         }
 */
 public class courseGradeFetcher {
-    private static final String TAG = listCoursesRegFetcher.class.getSimpleName();
+    private static final String TAG = CourseListFetcher.class.getSimpleName();
     private RequestQueue gradeListQueue;
     private User user;
     private String requestcode;
@@ -88,34 +82,34 @@ public class courseGradeFetcher {
         gradeListQueue = requestQueue;
         user = userModel;
     }
-    public void getCoursesList(String baseUrl, String courseCode){
-        requestcode = courseCode;
-        String requestUrl = baseUrl + ApiUrls.COURSE_BASE+courseCode+"/grades";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                requestUrl,
-                null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            validateParseUpdateResponse(response);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // VolleyError.
-            }
-        }
-        );
-        //Log.d()
-        gradeListQueue.add(jsonObjectRequest);
-    }
+//    public void getCoursesList(String baseUrl, String courseCode){
+//        requestcode = courseCode;
+//        String requestUrl = baseUrl + ApiUrls.COURSE_BASE+courseCode+"/grades";
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+//                requestUrl,
+//                null,
+//                new Response.Listener<JSONObject>() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        try {
+//                            validateParseUpdateResponse(response);
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                // VolleyError.
+//            }
+//        }
+//        );
+//        //Log.d()
+//        gradeListQueue.add(jsonObjectRequest);
+//    }
 
-    // Assumes listCoursesRegFetcher called before gradeFetcher.
-    private void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException {
-        user.update_gradeList(requestcode, jsonObject);
-    }
+    // Assumes CourseListFetcher called before gradeFetcher.
+//    private void validateParseUpdateResponse(JSONObject jsonObject) throws JSONException {
+//        user.update_gradeList(requestcode, jsonObject);
+//    }
 }

@@ -15,4 +15,8 @@ public class Course {
         this.courseDescription = description;
         this.courseCredits = credits;
     }
+
+    public static Course fromModel(xyz.akedia.android.moodleonmobile.model.Course modelCourse) {
+        return new Course(modelCourse.getCode(),modelCourse.getName(),modelCourse.getDescription(),modelCourse.getCourseScheme().toString());
+    }
 }
