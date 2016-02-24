@@ -29,22 +29,22 @@ public class CourseDetailsAdapter extends FragmentPagerAdapter {
         this.NumbOfTabs = mNumbOfTabsumb;
     }
 
-    private List<String[]> getDummyCourseThreadList(){
-        List<String[]> threadList = new ArrayList<>();
-        for(int i = 0; i < 12 ; i++){
-            String[] thread = {"Dummy thread title","Dummy thread content, dummy thread content, dummy thread content\nDummy thread content","14-02-2016"};
-            threadList.add(thread);
-        }
-        return threadList;
-    }
-    private AssignmentList getDummyAssignmentList(){
-        AssignmentList assignmentList = new AssignmentList();
-        for(int i = 0; i < 12; i++){
-            Assignment assignment = new Assignment("You've a new assignment!","12-01-2016","22-01-2016");
-            assignmentList.addAssignment(assignment);
-        }
-        return assignmentList;
-    }
+//    private List<String[]> getDummyCourseThreadList(){
+//        List<String[]> threadList = new ArrayList<>();
+//        for(int i = 0; i < 12 ; i++){
+//            String[] thread = {"Dummy thread title","Dummy thread content, dummy thread content, dummy thread content\nDummy thread content","14-02-2016"};
+//            threadList.add(thread);
+//        }
+//        return threadList;
+//    }
+//    private AssignmentList getDummyAssignmentList(){
+//        AssignmentList assignmentList = new AssignmentList();
+//        for(int i = 0; i < 12; i++){
+//            Assignment assignment = new Assignment("You've a new assignment!","12-01-2016","22-01-2016");
+//            assignmentList.addAssignment(assignment);
+//        }
+//        return assignmentList;
+//    }
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;

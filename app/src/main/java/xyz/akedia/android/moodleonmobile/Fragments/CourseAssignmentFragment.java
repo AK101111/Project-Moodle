@@ -86,7 +86,9 @@ public class CourseAssignmentFragment extends Fragment{
                         JSONObject assignmentData = (JSONObject) assignments.get(i);
                         Assignment assignment = new Assignment(assignmentData.getString("name"),
                                                                 assignmentData.getString("created_at"),
-                                                                assignmentData.getString("deadline"));
+                                                                assignmentData.getString("deadline"),
+                                                assignmentData.getString("late_days_allowed"),
+                                                assignmentData.getString("description"));
                         assignmentList.addAssignment(assignment);
                     }
                 }catch (Exception e){

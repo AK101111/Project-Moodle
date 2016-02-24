@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="xyz.akedia.android.moodleonmobile.AssignmentDetailsActivity"
+    tools:showIn="@layout/activity_assignment_details">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.CardView
+                android:id="@+id/thread_details_layout"
+                app:cardBackgroundColor="#ffffff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                app:cardElevation="4dp"
+                app:cardCornerRadius="4dp">
+                <RelativeLayout
+                    android:layout_margin="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/assignment_name"
+                        android:layout_marginRight="10dp"
+                        android:textSize="18sp"
+                        android:textColor="#363636"
+                        android:text="Assignment name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/assignment_description"
+                        android:layout_below="@id/assignment_name"
+                        android:textSize="10sp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#727272"
+                        android:text="Thread description,thread description,thread description,thread description,thread description\nthread descriptionthread description.thread descriptionthread description.thread description,thread description."
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@id/assignment_description"
+                        android:background="#c7c7c7"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+                    <TextView
+                        android:id="@+id/date_created"
+                        android:text="Created : 12-02-2016"
+                        android:gravity="right"
+                        android:textSize="12sp"
+                        android:textColor="#b7b7b7"
+                        android:layout_marginTop="10dp"
+                        android:layout_below="@id/divider"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/deadline"
+                        android:text="Deadline : 17-02-2016"
+                        android:gravity="right"
+                        android:textSize="12sp"
+                        android:textColor="#b7b7b7"
+                        android:layout_marginTop="0dp"
+                        android:layout_below="@id/date_created"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/late_days_allowed"
+                        android:text="Late days allowed : 0"
+                        android:gravity="right"
+                        android:textSize="12sp"
+                        android:textColor="#b7b7b7"
+                        android:layout_marginTop="0dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@id/date_created"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
