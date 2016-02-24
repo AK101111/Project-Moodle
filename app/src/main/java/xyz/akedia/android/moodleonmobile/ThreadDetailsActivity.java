@@ -25,14 +25,14 @@ import xyz.akedia.android.moodleonmobile.Adapters.CommentAdapter;
 
 public class ThreadDetailsActivity extends AppCompatActivity {
 
-    String threadTitle;
+    //String threadTitle;
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thread_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        threadTitle = getIntent().getStringExtra("courseCode");
+        //threadTitle = getIntent().getStringExtra("courseCode");
         toolbar.setTitle("Thread details");
         setSupportActionBar(toolbar);
         init();

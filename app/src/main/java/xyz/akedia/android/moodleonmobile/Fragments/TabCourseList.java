@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import xyz.akedia.android.moodleonmobile.CourseList;
 import xyz.akedia.android.moodleonmobile.Adapters.CourseListAdapter;
@@ -25,6 +26,7 @@ public class TabCourseList extends Fragment {
     private final static String TAG = TabCourseList.class.getSimpleName();
     CourseList courseList;
     SwipeRefreshLayout swipeRefreshLayout;
+    TextView notice;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_course_list_fragment,container,false);
@@ -42,6 +44,7 @@ public class TabCourseList extends Fragment {
 
         final CourseListAdapter adapter = new CourseListAdapter(null,getActivity());
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
+        notice = (TextView)view.findViewById(R.id.no_course_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent);
 
         CourseList initialCourseList = CourseListController.getCourseListSynchronously(new SyncResponseHandler() {
@@ -50,6 +53,9 @@ public class TabCourseList extends Fragment {
                 swipeRefreshLayout.post(new Runnable() {
                     @Override
                     public void run() {
+                        notice.setText("Loading courses...");
+                        notice.setVisibility(View.VISIBLE);
+//                        swipeRefreshLayout.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(true);
                     }
                 });
@@ -65,10 +71,11 @@ public class TabCourseList extends Fragment {
                 if(updatedCourseList.courseCount() > 0) {
                     adapter.updateCourseList(updatedCourseList);
                     recyclerView.setAdapter(adapter);
-                    view.findViewById(R.id.no_course_layout).setVisibility(View.GONE);
+                    notice.setVisibility(View.GONE);
                     swipeRefreshLayout.setVisibility(View.VISIBLE);
                 }else{
-                    view.findViewById(R.id.no_course_layout).setVisibility(View.VISIBLE);
+                    notice.setVisibility(View.VISIBLE);
+                    notice.setText("No courses to view");
                     swipeRefreshLayout.setVisibility(View.GONE);
                 }
 
@@ -92,10 +99,11 @@ public class TabCourseList extends Fragment {
                         if(newCourseList.courseCount() > 0) {
                             adapter.updateCourseList(newCourseList);
                             recyclerView.setAdapter(adapter);
-                            view.findViewById(R.id.no_course_layout).setVisibility(View.GONE);
+                            notice.setVisibility(View.GONE);
                             swipeRefreshLayout.setVisibility(View.VISIBLE);
                         }else{
-                            view.findViewById(R.id.no_course_layout).setVisibility(View.VISIBLE);
+                            notice.setVisibility(View.VISIBLE);
+                            notice.setText("No courses to view");
                             swipeRefreshLayout.setVisibility(View.GONE);
                         }
 //                        swipeRefreshLayout.setRefreshing(false);

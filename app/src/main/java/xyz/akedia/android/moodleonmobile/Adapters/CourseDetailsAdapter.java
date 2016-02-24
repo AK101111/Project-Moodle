@@ -57,7 +57,7 @@ public class CourseDetailsAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 CourseAssignmentFragment courseAssignmentFragment = new CourseAssignmentFragment();
-                courseAssignmentFragment.setVals(getDummyAssignmentList());
+                courseAssignmentFragment.setVals(null);
                 fragment = courseAssignmentFragment;
                 break;
             case 2:

@@ -67,7 +67,7 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 TabNotifications tabNotifications = new TabNotifications();
-                tabNotifications.setVals(getDummyNotificationList());
+                tabNotifications.setVals(null);
                 fragment = tabNotifications;
                 break;
             case 2:

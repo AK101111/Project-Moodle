@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,9 +34,12 @@ public class TabNotifications extends Fragment {
     NotificationList notificationList;
     NotificationListAdapter adapter;
     RecyclerView recyclerView;
+    View parentView;
+    TextView notice;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_notifications_fragment,container,false);
+        parentView = v;
         init(v);
         return v;
     }
@@ -47,6 +51,8 @@ public class TabNotifications extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
+
+        notice = (TextView)parentView.findViewById(R.id.no_notification_layout);
 
         adapter = new NotificationListAdapter(notificationList,getActivity());
         recyclerView.setAdapter(adapter);
@@ -60,6 +66,8 @@ public class TabNotifications extends Fragment {
                 refresh();
             }
         });
+        notice.setText("Loading notifications...");
+        notice.setVisibility(View.VISIBLE);
         refresh();
     }
     private void refresh(){
@@ -86,19 +94,33 @@ public class TabNotifications extends Fragment {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-                adapter = new NotificationListAdapter(notificationList,getActivity());
-                recyclerView.setAdapter(adapter);
-                swipeRefreshLayout.setRefreshing(false);
+                if(notifications.length() > 0) {
+                    adapter = new NotificationListAdapter(notificationList, getActivity());
+                    recyclerView.setAdapter(adapter);
+                    swipeRefreshLayout.setRefreshing(false);
+                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                    notice.setVisibility(View.GONE);
+                }else {
+                    swipeRefreshLayout.setVisibility(View.GONE);
+                    notice.setText("No notifications");
+                    notice.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onFailure() {
                 swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.setVisibility(View.GONE);
+                notice.setText("Can't connect to the internet");
+                notice.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onError(Exception e) {
                 swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.setVisibility(View.GONE);
+                notice.setText("Can't connect to the internet");
+                notice.setVisibility(View.VISIBLE);
             }
         };
         return responseHandler;

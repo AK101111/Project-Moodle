@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,9 +34,12 @@ public class CourseAssignmentFragment extends Fragment{
     AssignmentList assignmentList;
     AssignmentListAdapter adapter;
     RecyclerView recyclerView;
+    View parentView;
+    TextView notice;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_assignment_fragment,container,false);
+        parentView = v;
         init(v);
         return v;
     }
@@ -52,6 +56,7 @@ public class CourseAssignmentFragment extends Fragment{
         recyclerView.setAdapter(adapter);
 
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
+        notice = (TextView)parentView.findViewById(R.id.no_assignment_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -60,6 +65,8 @@ public class CourseAssignmentFragment extends Fragment{
                 refresh();
             }
         });
+        notice.setText("Loading assignments...");
+        notice.setVisibility(View.VISIBLE);
         refresh();
     }
     private void refresh(){
@@ -86,19 +93,33 @@ public class CourseAssignmentFragment extends Fragment{
                     e.printStackTrace();
                 }
 
-                adapter = new AssignmentListAdapter(assignmentList,getActivity());
-                recyclerView.setAdapter(adapter);
-                swipeRefreshLayout.setRefreshing(false);
+                if(assignments.length() > 0) {
+                    adapter = new AssignmentListAdapter(assignmentList, getActivity());
+                    recyclerView.setAdapter(adapter);
+                    swipeRefreshLayout.setRefreshing(false);
+                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                    notice.setVisibility(View.GONE);
+                }else{
+                    swipeRefreshLayout.setVisibility(View.GONE);
+                    notice.setText("No assignments to view");
+                    notice.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
             public void onFailure() {
                 swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.setVisibility(View.GONE);
+                notice.setText("can't connect to the internet");
+                notice.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onError(Exception e) {
                 swipeRefreshLayout.setRefreshing(false);
+                swipeRefreshLayout.setVisibility(View.GONE);
+                notice.setText("Can't connect to the internet");
+                notice.setVisibility(View.VISIBLE);
             }
         };
         return responseHandler;
