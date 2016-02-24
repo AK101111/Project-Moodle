@@ -1,5 +1,7 @@
 package xyz.akedia.android.moodleonmobile.model;
 
+import java.util.ArrayList;
+
 /**
  * Created by arnavkansal on 24/02/16.
  */
@@ -50,6 +52,7 @@ public class Thread {
     private String updatedAt;
     public int id;
 
+    public ArrayList<Comment> comments;
 
 
     public Thread(int userId, String description, String title, String createdAt, int registeredCourseId, String updatedAt, int id){
@@ -62,8 +65,11 @@ public class Thread {
         this.id = id;
     }
 
-    public int userId() {
+    public int getUserId() {
         return userId;
+    }
+    public int getThreadId() {
+        return id;
     }
     public String getDescription(){
         return description;
@@ -79,6 +85,10 @@ public class Thread {
     }
     public String getUpdatedAt(){
         return updatedAt;
+    }
+
+    public void setComments(ArrayList<Comment> newComments) {
+        comments = newComments;
     }
 }
 

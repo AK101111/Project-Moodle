@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.akedia.android.moodleonmobile.CourseDetailsActivity;
 import xyz.akedia.android.moodleonmobile.R;
 import xyz.akedia.android.moodleonmobile.ThreadDetailsActivity;
 import xyz.akedia.android.moodleonmobile.model.Thread;
@@ -22,6 +23,7 @@ import xyz.akedia.android.moodleonmobile.utils.Utils;
  * Created by ashish on 21/2/16.
  */
 public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapter.CourseViewHolder>{
+    public static final String TAG = CourseThreadAdapter.class.getSimpleName();
 
     public void updateThreadList(ArrayList<Thread> updatedThreadList) {
         this.threadList = updatedThreadList;
@@ -30,6 +32,7 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
     public static class CourseViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView threadTitle, threadSummary, threadDate;
+        int threadId;
 
         CourseViewHolder(final View itemView, final Activity activity) {
             super(itemView);
@@ -37,6 +40,16 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
             threadTitle = (TextView)itemView.findViewById(R.id.thread_title);
             threadSummary = (TextView)itemView.findViewById(R.id.thread_description);
             threadDate = (TextView)itemView.findViewById(R.id.thread_date);
+            cv.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    Log.d(TAG,String.format("courseCode:%s, threadId:%d", CourseDetailsActivity.courseCode.toLowerCase(),threadId));
+                    Intent intent = new Intent(activity,ThreadDetailsActivity.class);
+                    intent.putExtra("courseCode", CourseDetailsActivity.courseCode.toLowerCase() );
+                    intent.putExtra("threadId", threadId);
+                    activity.startActivity(intent);
+                    //Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
     ArrayList<Thread> threadList;
@@ -65,15 +78,8 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
         final Thread thread = threadList.get(i);
         courseViewHolder.threadTitle.setText(thread.getTitle());
         courseViewHolder.threadSummary.setText(thread.getDescription());
-        courseViewHolder.threadDate.setText(Utils.parseDate(thread.getCreatedAt()));
-        courseViewHolder.cv.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                Intent intent = new Intent(parentActivity,ThreadDetailsActivity.class);
-                intent.putExtra("threadId",thread.id + "");
-                parentActivity.startActivity(intent);
-                //Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
-            }
-        });
+        courseViewHolder.threadDate.setText(thread.getCreatedAt());
+        courseViewHolder.threadId = thread.getThreadId();
     }
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {

@@ -7,10 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import xyz.akedia.android.moodleonmobile.Comment;
 import xyz.akedia.android.moodleonmobile.R;
+import xyz.akedia.android.moodleonmobile.model.Comment;
+import xyz.akedia.android.moodleonmobile.model.Thread;
+import xyz.akedia.android.moodleonmobile.model.User;
+import xyz.akedia.android.moodleonmobile.model.Users;
 
 /**
  * Created by ashish on 24/2/16.
@@ -46,13 +50,15 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
     List<Comment> commentList;
+    Thread thread;
     View mHeaderView,mFooterView;
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
     private static final int VIEW_TYPE_FOOTER = 2;
 //    Activity parentActivity;
 
-    public CommentAdapter(List<Comment> list,View headerView,View footerView){
+    public CommentAdapter(Thread thread, List<Comment> list,View headerView,View footerView){
+        this.thread = thread;
         this.commentList = list;
         this.mHeaderView = headerView;
         this.mFooterView = footerView;
@@ -94,18 +100,37 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (viewHolder instanceof CommentViewHolder) {
             CommentViewHolder commentViewHolder = (CommentViewHolder) viewHolder;
             Comment comment = commentList.get(i-1);
-            commentViewHolder.creatorName.setText(comment.creatorName);
-            commentViewHolder.content.setText(comment.content);
-            commentViewHolder.createdDate.setText(comment.createdDate);
+            commentViewHolder.creatorName.setText(comment.commenterName);
+            commentViewHolder.content.setText(comment.description);
+            commentViewHolder.createdDate.setText(comment.createdTime);
         }else if(viewHolder instanceof HeaderViewHolder){
             //set thread details(title, description etc.) here
             HeaderViewHolder headerViewHolder = (HeaderViewHolder)viewHolder;
-            if(getItemCount() == 1)
+            setHeader(headerViewHolder);
+            if(commentList == null || commentList.isEmpty())
                 headerViewHolder.commentIndicator.setText("No comments to view");
         }
     }
+
+    private void setHeader(HeaderViewHolder headerViewHolder) {
+        if(thread != null) {
+            String title = thread.getTitle();
+            String description = thread.getDescription();
+            String createdDate = thread.getCreatedAt();
+            String updatedDate = thread.getUpdatedAt();
+            headerViewHolder.threadTitle.setText(title);
+            headerViewHolder.threadDescription.setText(description);
+            headerViewHolder.created.setText(String.format("Created %s", createdDate));
+            headerViewHolder.lastUpdated.setText(String.format("Last Updated %s", updatedDate));
+        }
+    }
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public void updateCommentList(ArrayList<Comment> newComments) {
+        commentList = newComments;
     }
 }

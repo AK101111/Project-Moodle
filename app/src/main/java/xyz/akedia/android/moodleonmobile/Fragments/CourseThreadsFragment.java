@@ -80,6 +80,8 @@ public class CourseThreadsFragment extends Fragment {
                 }
             };
         });
+//        adapter.updateThreadList(initialThreadList);
+//        recyclerView.setAdapter(adapter);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
