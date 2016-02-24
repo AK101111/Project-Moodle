@@ -17,4 +17,6 @@ public class ApiUrls {
     public final static String COURSE_THREADS_BASE = "/courses/course.json/";       //<coursecode>/threads
     public final static String THREAD_INFO_BASE = "/threads/thread.json/";         //<thread‐number>
     //Create new thread: /threads/new.json?title=<title>&description=<desc>&course_code=<coursecode> Add comment to a thread: /threads/post_comment.json?thread_id=<thread_id>&description=<desc>
+
+    public final static String ADD_COMMENT = "/threads/post_comment.json";
 }

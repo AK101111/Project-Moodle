@@ -21,6 +21,8 @@ import com.astuetz.PagerSlidingTabStrip;
 import org.w3c.dom.Text;
 
 import xyz.akedia.android.moodleonmobile.Adapters.CourseDetailsAdapter;
+import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
+import xyz.akedia.android.moodleonmobile.model.Course;
 
 public class CourseDetailsActivity extends AppCompatActivity {
 
@@ -113,11 +115,19 @@ public class CourseDetailsActivity extends AppCompatActivity {
         setDialogLayoutParams(dialog);
     }
     private void showInfo(){
+        Course course = MoodleOnMobile.getUser().findCourse(courseCode.toLowerCase());
         Dialog dialog = new Dialog(CourseDetailsActivity.this,R.style.DialogSlideAnimSmall);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_info);
         ((TextView)dialog.findViewById(R.id.course_code)).setText(courseCode);
         setDialogLayoutParams(dialog);
+
+        if(course != null) {
+            ((TextView) dialog.findViewById(R.id.course_name)).setText(course.getName());
+            ((TextView) dialog.findViewById(R.id.course_description)).setText(course.getDescription());
+            ((TextView) dialog.findViewById(R.id.course_credits)).setText(String.format("%d Credits (%s)",course.getCredits(),course.getCourseScheme().toString()));
+        }
+
     }
     private void setDialogLayoutParams(Dialog dialog){
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
