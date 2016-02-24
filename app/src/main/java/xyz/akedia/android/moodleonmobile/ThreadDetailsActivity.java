@@ -33,6 +33,7 @@ public class ThreadDetailsActivity extends AppCompatActivity {
     public static String courseCode;
     public static int threadId;
     Thread thread;
+    CommentAdapter commentAdapter;
 
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
@@ -57,10 +58,10 @@ public class ThreadDetailsActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         commentList.setHasFixedSize(true);
         commentList.setLayoutManager(llm);
-        View headerView = getLayoutInflater().inflate(R.layout.layout_thread_view,null,false);
-        View footerView = getLayoutInflater().inflate(R.layout.layout_comment_footer,null,false);
+        final View headerView = getLayoutInflater().inflate(R.layout.layout_thread_view,null,false);
+        final View footerView = getLayoutInflater().inflate(R.layout.layout_comment_footer,null,false);
 //        CommentAdapter commentAdapter = new CommentAdapter(getDummyComments(),headerView,footerView);
-        final CommentAdapter commentAdapter = new CommentAdapter(thread,new ArrayList<Comment>(),headerView,footerView);
+        commentAdapter = new CommentAdapter(thread,new ArrayList<Comment>(),headerView,footerView);
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
 
         ArrayList<Comment> initialCommentList = ThreadDetailsController.getCommentListSync(courseCode,threadId, new ThreadDetailsController.SyncResponseHandler() {
@@ -79,11 +80,11 @@ public class ThreadDetailsActivity extends AppCompatActivity {
             }
             @Override
             public void onUpdate(ArrayList<Comment> updatedComments) {
-                commentAdapter.updateCommentList(updatedComments);
+                commentAdapter = new CommentAdapter(thread,updatedComments,headerView,footerView);
                 commentList.setAdapter(commentAdapter);
             }
         });
-        commentAdapter.updateCommentList(initialCommentList);
+        commentAdapter = new CommentAdapter(thread,initialCommentList,headerView,footerView);
         commentList.setAdapter(commentAdapter);
 
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent);
@@ -93,7 +94,7 @@ public class ThreadDetailsActivity extends AppCompatActivity {
                 ThreadDetailsController.getCommentListAsync(courseCode, threadId, new ThreadDetailsController.AsyncResponseHandler() {
                     @Override
                     public void onResponse(ArrayList<Comment> newCommentList) {
-                        commentAdapter.updateCommentList(newCommentList);
+                        commentAdapter = new CommentAdapter(thread,newCommentList,headerView,footerView);
                         commentList.setAdapter(commentAdapter);
                     }
 

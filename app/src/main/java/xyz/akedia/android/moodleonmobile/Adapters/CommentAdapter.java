@@ -15,6 +15,7 @@ import xyz.akedia.android.moodleonmobile.model.Comment;
 import xyz.akedia.android.moodleonmobile.model.Thread;
 import xyz.akedia.android.moodleonmobile.model.User;
 import xyz.akedia.android.moodleonmobile.model.Users;
+import xyz.akedia.android.moodleonmobile.utils.Utils;
 
 /**
  * Created by ashish on 24/2/16.
@@ -49,6 +50,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             super(itemView);
         }
     }
+    String commentIndicatorText;
     List<Comment> commentList;
     Thread thread;
     View mHeaderView,mFooterView;
@@ -62,6 +64,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         this.commentList = list;
         this.mHeaderView = headerView;
         this.mFooterView = footerView;
+        commentIndicatorText = "Comments";
 //        this.parentActivity = activity;
     }
     @Override
@@ -108,7 +111,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             HeaderViewHolder headerViewHolder = (HeaderViewHolder)viewHolder;
             setHeader(headerViewHolder);
             if(commentList == null || commentList.isEmpty())
-                headerViewHolder.commentIndicator.setText("No comments to view");
+                commentIndicatorText = "No comments to display";
+            headerViewHolder.commentIndicator.setText(commentIndicatorText);
         }
     }
 
@@ -120,8 +124,8 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             String updatedDate = thread.getUpdatedAt();
             headerViewHolder.threadTitle.setText(title);
             headerViewHolder.threadDescription.setText(description);
-            headerViewHolder.created.setText(String.format("Created %s", createdDate));
-            headerViewHolder.lastUpdated.setText(String.format("Last Updated %s", updatedDate));
+            headerViewHolder.created.setText(String.format("Created %s", Utils.parseDate(createdDate)));
+            headerViewHolder.lastUpdated.setText(String.format("Last Updated %s", Utils.parseDate(updatedDate)));
         }
     }
 
@@ -130,7 +134,12 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void updateCommentList(ArrayList<Comment> newComments) {
-        commentList = newComments;
-    }
+//    public void updateCommentList(ArrayList<Comment> newComments) {
+////        if(newComments == null || newComments.isEmpty())
+////            headerViewHolder.commentIndicator.setText("No comments to display");
+//        commentIndicatorText = "Comments";
+//        if(commentList == null || commentList.isEmpty())
+//            commentIndicatorText = "No comments to display";
+//        commentList = newComments;
+//    }
 }

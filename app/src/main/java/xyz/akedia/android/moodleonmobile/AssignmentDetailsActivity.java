@@ -36,7 +36,7 @@ public class AssignmentDetailsActivity extends AppCompatActivity {
     private void setData(){
         ((TextView)findViewById(R.id.assignment_name)).setText(assignmentTitle);
         ((TextView)findViewById(R.id.assignment_description)).setText(Html.fromHtml(assignmentDescription));
-        ((TextView)findViewById(R.id.date_created)).setText("Created : "+Utils.parseDate(dateCreated));
+        ((TextView)findViewById(R.id.date_created)).setText("Created on : "+Utils.parseDate(dateCreated));
         ((TextView)findViewById(R.id.deadline)).setText("Deadline : "+Utils.parseDate(deadline));
         ((TextView)findViewById(R.id.late_days_allowed)).setText("Late days allowed : "+lateDaysAllowed);
     }

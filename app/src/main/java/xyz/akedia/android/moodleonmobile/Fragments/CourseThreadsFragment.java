@@ -28,6 +28,7 @@ public class CourseThreadsFragment extends Fragment {
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
     TextView notice;
+    CourseThreadAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_course_thread_fragment,container,false);
@@ -43,8 +44,7 @@ public class CourseThreadsFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
-
-        final CourseThreadAdapter adapter = new CourseThreadAdapter(threadList,getActivity());
+        adapter = new CourseThreadAdapter(threadList,getActivity());
         recyclerView.setAdapter(adapter);
         notice = (TextView)view.findViewById(R.id.no_thread_layout);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
@@ -88,31 +88,34 @@ public class CourseThreadsFragment extends Fragment {
             public void onRefresh() {
                 //after refresh complete set this
 //                swipeRefreshLayout.setRefreshing(false);
-                ThreadListController.getThreadListAsync(new ThreadListController.AsyncResponseHandler1() {
-                    @Override
-                    public void onResponse(final ArrayList<Thread> newThreadList) {
-                        if(newThreadList.size() > 0) {
-                            adapter.updateThreadList(newThreadList);
-                            recyclerView.setAdapter(adapter);
-                            notice.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.VISIBLE);
-                        }else{
-                            notice.setVisibility(View.VISIBLE);
-                            notice.setText("No courses to view");
-                            recyclerView.setVisibility(View.GONE);
-                        }
-                    }
+                refresh();
+            }
+        });
+    }
+    public void refresh(){
+        ThreadListController.getThreadListAsync(new ThreadListController.AsyncResponseHandler1() {
+            @Override
+            public void onResponse(final ArrayList<Thread> newThreadList) {
+                if(newThreadList.size() > 0) {
+                    adapter.updateThreadList(newThreadList);
+                    recyclerView.setAdapter(adapter);
+                    notice.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                }else{
+                    notice.setVisibility(View.VISIBLE);
+                    notice.setText("No courses to view");
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
 
-                    @Override
-                    public void duringWait() {
+            @Override
+            public void duringWait() {
 
-                    }
+            }
 
-                    @Override
-                    public void finishWait() {
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                });
+            @Override
+            public void finishWait() {
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
     }
