@@ -8,21 +8,8 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ThreadDetailsActivity"
     tools:showIn="@layout/activity_thread_details">
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/comment_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-    <!--</ScrollView>-->
-
     <android.support.v7.widget.CardView
+        android:id="@+id/add_comment_layout"
         app:cardBackgroundColor="#ffffff"
         app:cardUseCompatPadding="true"
         android:foreground="?android:attr/selectableItemBackground"
@@ -41,6 +28,10 @@
                 android:layout_centerVertical="true"
                 android:layout_width="30dp"
                 android:layout_height="30dp" />
+            <LinearLayout
+                android:focusableInTouchMode="true"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
             <EditText
                 android:layout_marginRight="10dp"
                 android:textColor="#363636"
@@ -53,4 +44,23 @@
                 android:layout_height="wrap_content" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_above="@id/add_comment_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/comment_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <!--</ScrollView>-->
 </RelativeLayout>

@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +25,8 @@ import xyz.akedia.android.moodleonmobile.Adapters.CommentAdapter;
 
 public class ThreadDetailsActivity extends AppCompatActivity {
 
-    public static String threadTitle;
+    String threadTitle;
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,8 +43,17 @@ public class ThreadDetailsActivity extends AppCompatActivity {
         commentList.setHasFixedSize(true);
         commentList.setLayoutManager(llm);
         View headerView = getLayoutInflater().inflate(R.layout.layout_thread_view,null,false);
-        CommentAdapter commentAdapter = new CommentAdapter(getDummyComments(),headerView);
+        View footerView = getLayoutInflater().inflate(R.layout.layout_comment_footer,null,false);
+        CommentAdapter commentAdapter = new CommentAdapter(getDummyComments(),headerView,footerView);
         commentList.setAdapter(commentAdapter);
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
     }
     private List<Comment> getDummyComments(){
         List<Comment> comments = new ArrayList<>();

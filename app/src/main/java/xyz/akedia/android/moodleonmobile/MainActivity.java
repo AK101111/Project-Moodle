@@ -27,7 +27,6 @@ import xyz.akedia.android.moodleonmobile.uiElements.UserDetailsDialog;
 
 public class MainActivity extends AppCompatActivity {
 
-    FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,43 +37,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initUiElements(){
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         HomeScreenViewPagerAdapter pagerAdapter = new HomeScreenViewPagerAdapter(getSupportFragmentManager());
         String [] titles = {"Courses","Notifications","Grades"};
-        pagerAdapter.setVals(titles,titles.length);
+        pagerAdapter.setVals(titles, titles.length);
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(titles.length - 1);
 
         PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabs.setViewPager(pager);
-
-        tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                if (position == 1)
-                    fab.show();
-                else
-                    fab.hide();
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     @Override
@@ -95,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
             showCalendar();
             return true;
         }
-        if (id == R.id.action_settings) {
-            showSettings();
+        if (id == R.id.action_profile) {
+            showProfile();
             return true;
         }
 
@@ -117,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.finish();
     }
 
-    private void showSettings(){
+    private void showProfile(){
         Dialog dialog = new Dialog(MainActivity.this,R.style.DialogSlideAnimSmall);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_settings);

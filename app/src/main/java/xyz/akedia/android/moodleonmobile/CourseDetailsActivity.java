@@ -41,8 +41,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                showNewThreadDialog();
             }
         });
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
@@ -99,6 +98,13 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    private void showNewThreadDialog(){
+        Dialog dialog = new Dialog(CourseDetailsActivity.this,R.style.DialogSlideAnimBottom);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_new_thread);
+        setDialogLayoutParams(dialog);
+    }
+
     private void showCalendar(){
         Dialog dialog = new Dialog(CourseDetailsActivity.this,R.style.DialogSlideAnim);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

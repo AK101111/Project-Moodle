@@ -1,7 +1,5 @@
 package xyz.akedia.android.moodleonmobile.Adapters;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import java.util.List;
 
 import xyz.akedia.android.moodleonmobile.Comment;
 import xyz.akedia.android.moodleonmobile.R;
-import xyz.akedia.android.moodleonmobile.ThreadDetailsActivity;
 
 /**
  * Created by ashish on 24/2/16.
@@ -22,12 +19,14 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
         TextView creatorName, createdDate, content;
+        CardView cardView;
 
         CommentViewHolder(final View itemView) {
             super(itemView);
             creatorName = (TextView)itemView.findViewById(R.id.creator_name);
             createdDate = (TextView)itemView.findViewById(R.id.created_date);
             content = (TextView)itemView.findViewById(R.id.content);
+            cardView = (CardView)itemView.findViewById(R.id.card_view);
         }
     }
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {
@@ -41,37 +40,51 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             commentIndicator = (TextView)itemView.findViewById(R.id.comment_indicator);
         }
     }
+    public static class FooterViewHolder extends RecyclerView.ViewHolder {
+        FooterViewHolder(final View itemView) {
+            super(itemView);
+        }
+    }
     List<Comment> commentList;
-    View mHeaderView;
+    View mHeaderView,mFooterView;
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
+    private static final int VIEW_TYPE_FOOTER = 2;
 //    Activity parentActivity;
 
-    public CommentAdapter(List<Comment> list,View headerView){
+    public CommentAdapter(List<Comment> list,View headerView,View footerView){
         this.commentList = list;
         this.mHeaderView = headerView;
+        this.mFooterView = footerView;
 //        this.parentActivity = activity;
     }
     @Override
     public int getItemCount() {
         if (mHeaderView == null) {
-            return commentList.size();
-        } else {
             return commentList.size() + 1;
+        } else {
+            return commentList.size() + 2;
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        return (position == 0) ? VIEW_TYPE_HEADER : VIEW_TYPE_ITEM;
+        if(position==0)
+            return VIEW_TYPE_HEADER;
+        else if(position == commentList.size() + 1)
+            return VIEW_TYPE_FOOTER;
+        else
+            return VIEW_TYPE_ITEM;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         if (i == VIEW_TYPE_HEADER) {
             return new HeaderViewHolder(mHeaderView);
+        }else if (i == VIEW_TYPE_FOOTER){
+            return new FooterViewHolder(mFooterView);
         } else {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_comment, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_comment_list, viewGroup, false);
             CommentViewHolder commentViewHolder = new CommentViewHolder(v);
             return commentViewHolder;
         }
@@ -84,7 +97,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             commentViewHolder.creatorName.setText(comment.creatorName);
             commentViewHolder.content.setText(comment.content);
             commentViewHolder.createdDate.setText(comment.createdDate);
-        }else{
+        }else if(viewHolder instanceof HeaderViewHolder){
             //set thread details(title, description etc.) here
             HeaderViewHolder headerViewHolder = (HeaderViewHolder)viewHolder;
             if(getItemCount() == 1)

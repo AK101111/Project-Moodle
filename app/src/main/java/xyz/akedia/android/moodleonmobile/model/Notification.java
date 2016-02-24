@@ -7,28 +7,26 @@ import org.json.JSONObject;
  * Created by arnavkansal on 21/02/16.
  */
 public class Notification {
-    private String userIdPoster;
+    private String userId;
     private int isSeen;
-    private String createdAt;
-    private String id;
-    private String description;
+    public String createdAt;
+    private String notificationId;
+    public String description;
 //    private String posted_by;
 //    private String thread_link;
 //    private String courseid;
 
-
-
-    public void set_init(JSONObject notification) throws JSONException{
-        userIdPoster = notification.getString("user_id");
-        description = notification.getString("description");
-        isSeen = notification.getInt("is_seen");
-        createdAt = notification.getString("created_at");
-        id = notification.getString("id");
-//        update_description(notification.getString("description"));
+    public Notification(String uId, String desc,int seen,String time,String id){
+        userId = uId;
+        description = desc;
+        isSeen = seen;
+        createdAt = time;
+        notificationId = id;
+        updateDescription(description);
     }
 
-//    protected void update_description(String description) {
-//        //TODO use jsoup?
-//    }
+    protected void updateDescription(String description) {
+        //TODO use jsoup?
+    }
 
 }
