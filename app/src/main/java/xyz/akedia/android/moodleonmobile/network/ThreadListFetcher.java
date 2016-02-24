@@ -15,9 +15,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import xyz.akedia.android.moodleonmobile.CourseDetailsActivity;
 import xyz.akedia.android.moodleonmobile.ThreadDetailsActivity;
 import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
 import xyz.akedia.android.moodleonmobile.config.ApiUrls;
+import xyz.akedia.android.moodleonmobile.model.Course;
 
 /**
  * Created by arnavkansal on 24/02/16.
@@ -77,7 +79,7 @@ public class ThreadListFetcher {
     }
 
     public ThreadListFetcher(ThreadListResponseHandler threadListResponseHandler){
-        threadListUrl = MoodleOnMobile.App.getMoodleUrl() + ApiUrls.COURSE_BASE + ThreadDetailsActivity.threadTitle + "/threads";
+        threadListUrl = MoodleOnMobile.App.getMoodleUrl() + ApiUrls.COURSE_BASE + CourseDetailsActivity.courseCode.toLowerCase() + "/threads";
         requestQueue = MoodleOnMobile.getRequestQueue();
         responseHandler = threadListResponseHandler;
         cookie = MoodleOnMobile.App.getCookie();

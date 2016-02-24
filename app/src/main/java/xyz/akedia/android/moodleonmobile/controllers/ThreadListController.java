@@ -9,11 +9,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import xyz.akedia.android.moodleonmobile.CourseDetailsActivity;
+import xyz.akedia.android.moodleonmobile.CourseList;
 import xyz.akedia.android.moodleonmobile.ThreadDetailsActivity;
 import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
 import xyz.akedia.android.moodleonmobile.model.Thread;
 import xyz.akedia.android.moodleonmobile.model.User;
 import xyz.akedia.android.moodleonmobile.model.Course;
+import xyz.akedia.android.moodleonmobile.network.CourseListFetcher;
 import xyz.akedia.android.moodleonmobile.network.ThreadListFetcher;
 import xyz.akedia.android.moodleonmobile.utils.ParseResponse;
 
@@ -24,53 +27,60 @@ public class ThreadListController {
     public static final String TAG = ThreadListController.class.getSimpleName();
     //public static ThreadList
 
-    public static Thread[] getThreadListSynchronously(final SyncResponseHandler handler) {
+    public interface SyncResponseHandler1 {
+        void onSyncWait();
+        void finishSyncWait();
+        void onUpdate(ArrayList<Thread> updatedThreadList);
+    }
+    public static ArrayList<Thread> getThreadListSynchronously(final SyncResponseHandler1 handler) {
         User user = MoodleOnMobile.getUser();
-        String coursecode = ThreadDetailsActivity.threadTitle;
+        final String coursecode = CourseDetailsActivity.courseCode;
+        Log.d(TAG,"--> course code : " + coursecode);
         Course course = user.findCourse(coursecode);
-        if(course==null){
+        Log.d(TAG,"course : " + ((course==null)?"null":"notNull"));
+        ArrayList<Thread> threadArrayList = course.threads;
+        if(threadArrayList==null){
             new ThreadListFetcher(new ThreadListFetcher.ThreadListResponseHandler() {
                 @Override
                 public void onSuccess(int currentSem, JSONArray threadList){
                     try {
                         ArrayList<Thread> updatedList = ParseResponse.parseThreadList(threadList);
 
-                       // MoodleOnMobile.getUser().setCourseList(updatedList);
-                       // MoodleOnMobile.getUser().setCurrentSem(currentSem);
+                       MoodleOnMobile.getUser().findCourse(coursecode).set_thread(updatedList);
+                       MoodleOnMobile.getUser().setCurrentSem(currentSem);
 
-                        //handler.onUpdate(CourseList.fromModel(updatedList));
-                        //handler.finishSyncWait();
+                        handler.onUpdate(updatedList);
+                        handler.finishSyncWait();
                     } catch (Exception e) {
                         e.printStackTrace();
-                        //handler.finishSyncWait();
+                        handler.finishSyncWait();
                     }
                 }
 
                 @Override
                 public void onFailure() {
-                    //handler.finishSyncWait();
-                    Log.d(TAG, "Failed to fetch course list");
+                    handler.finishSyncWait();
+                    Log.d(TAG, "Failed to fetch thread list");
                 }
 
                 @Override
                 public void onError(Exception e) {
-                    //handler.finishSyncWait();
+                    handler.finishSyncWait();
                     e.printStackTrace();
                 }
             }).getThreadList();
-            //handler.onSyncWait();
-            return new Thread[];
+            handler.onSyncWait();
+            return new ArrayList<Thread>();
         } else {
-            new ThreadListFetcher(new ThreadListFetcher().ThreadListResponseHandler() {
+            new ThreadListFetcher(new ThreadListFetcher.ThreadListResponseHandler() {
                 @Override
                 public void onSuccess(int currentSem, JSONArray threadList){
                     try {
                         ArrayList<Thread> updatedList = ParseResponse.parseThreadList(threadList);
 
-                        //MoodleOnMobile.getUser().setCourseList(updatedList);
-                        //MoodleOnMobile.getUser().setCurrentSem(currentSem);
-
-                        //handler.onUpdate(CourseList.fromModel(updatedList));
+                        MoodleOnMobile.getUser().findCourse(coursecode).set_thread(updatedList);
+                        MoodleOnMobile.getUser().setCurrentSem(currentSem);
+                        handler.onUpdate(updatedList);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -78,32 +88,38 @@ public class ThreadListController {
 
                 @Override
                 public void onFailure() {
-                    Log.d(TAG,"Failed to update course list");
+                    Log.d(TAG,"Failed to update thread list");
                 }
 
                 @Override
                 public void onError(Exception e) {
                     e.printStackTrace();
                 }
-            }).getCoursesList();
-            return CourseList.fromModel(courseList);
+            }).getThreadList();
+            return threadArrayList;
         }
     };
+    public interface AsyncResponseHandler1 {
+        void onResponse(ArrayList<Thread> threadList);
+        void duringWait();
+        void finishWait();
+    }
 
-    public static void getCourseListAsync(final AsyncResponseHandler handler) {
+    public static void getThreadListAsync(final AsyncResponseHandler1 handler) {
+        final String coursecode = ThreadDetailsActivity.threadTitle;
         handler.duringWait();
-        new CourseListFetcher(new CourseListFetcher.CourseListResponseHandler() {
+        new ThreadListFetcher(new ThreadListFetcher.ThreadListResponseHandler() {
             @Override
-            public void onSuccess(int currentSem, JSONArray courseList, JSONObject user) {
+            public void onSuccess(int currentSem, JSONArray threadList){
                 try {
-                    Log.d(TAG,"got courseList : " + courseList.toString());
-                    ArrayList<Course> updatedList = ParseResponse.parseCourseList(courseList);
-                    Log.d(TAG,"array list size : " + updatedList.size());
+                    Log.d(TAG, "got threadList : " + threadList.toString());
+                    ArrayList<Thread> updatedList = ParseResponse.parseThreadList(threadList);
+                    Log.d(TAG, "array list size : " + updatedList.size());
 
-                    MoodleOnMobile.getUser().setCourseList(updatedList);
+                    MoodleOnMobile.getUser().findCourse(coursecode).set_thread(updatedList);
                     MoodleOnMobile.getUser().setCurrentSem(currentSem);
 
-                    handler.onResponse(CourseList.fromModel(updatedList));
+                    handler.onResponse(updatedList);
                     handler.finishWait();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -113,7 +129,7 @@ public class ThreadListController {
 
             @Override
             public void onFailure() {
-                Log.d(TAG,"Failed to update course list async");
+                Log.d(TAG,"Failed to update thread list async");
                 handler.finishWait();
             }
 
@@ -122,6 +138,6 @@ public class ThreadListController {
                 e.printStackTrace();
                 handler.finishWait();
             }
-        }).getCoursesList();
+        }).getThreadList();
     }
 }

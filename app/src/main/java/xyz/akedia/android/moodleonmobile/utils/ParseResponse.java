@@ -60,8 +60,8 @@ public class ParseResponse {
         String title = jsonObject.getString("title");
         String createdAt = jsonObject.getString("created_at");
         int id = jsonObject.getInt("id");
-        int registeredCourseId = jsonObject.getInt("registeredCourseId");
-        String updatedAt = jsonObject.getString("updated_id");
+        int registeredCourseId = jsonObject.getInt("registered_course_id");
+        String updatedAt = jsonObject.getString("updated_at");
         return new Thread(userId, description, title, createdAt,registeredCourseId,updatedAt, id);
     }
 }

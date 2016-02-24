@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import xyz.akedia.android.moodleonmobile.R;
@@ -19,6 +20,10 @@ import xyz.akedia.android.moodleonmobile.model.Thread;
  * Created by ashish on 21/2/16.
  */
 public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapter.CourseViewHolder>{
+
+    public void updateThreadList(ArrayList<Thread> updatedThreadList) {
+        this.threadList = updatedThreadList;
+    }
 
     public static class CourseViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
@@ -40,16 +45,19 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
             });
         }
     }
-    Thread[] threadList;
+    ArrayList<Thread> threadList;
     Activity parentActivity;
 
-    public CourseThreadAdapter(Thread[] list,Activity activity){
+    public CourseThreadAdapter(ArrayList<Thread> list,Activity activity){
         this.threadList = list;
         this.parentActivity = activity;
     }
     @Override
     public int getItemCount() {
-        return threadList.length;
+        if(threadList==null){
+            return 0;
+        }
+        return threadList.size();
     }
     @Override
     public CourseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -59,7 +67,7 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
     }
     @Override
     public void onBindViewHolder(CourseViewHolder courseViewHolder, int i) {
-        Thread thread = threadList[i];
+        Thread thread = threadList.get(i);
         courseViewHolder.threadTitle.setText(thread.getTitle());
         courseViewHolder.threadSummary.setText(thread.getDescription());
         courseViewHolder.threadDate.setText(thread.getCreatedAt());
