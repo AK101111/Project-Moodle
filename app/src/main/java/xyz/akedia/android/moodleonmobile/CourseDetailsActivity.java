@@ -24,7 +24,7 @@ import xyz.akedia.android.moodleonmobile.Adapters.CourseDetailsAdapter;
 
 public class CourseDetailsActivity extends AppCompatActivity {
 
-    String courseCode;
+    public static String courseCode;
     FloatingActionButton fab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

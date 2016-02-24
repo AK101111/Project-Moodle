@@ -50,6 +50,8 @@ public class Thread {
     private String updatedAt;
     public int id;
 
+
+
     public Thread(int userId, String description, String title, String createdAt, int registeredCourseId, String updatedAt, int id){
         this.userId = userId;
         this.description = description;
