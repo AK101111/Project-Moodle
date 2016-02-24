@@ -106,7 +106,7 @@ public class ThreadListController {
     }
 
     public static void getThreadListAsync(final AsyncResponseHandler1 handler) {
-        final String coursecode = ThreadDetailsActivity.threadTitle;
+        final String coursecode = CourseDetailsActivity.courseCode;
         handler.duringWait();
         new ThreadListFetcher(new ThreadListFetcher.ThreadListResponseHandler() {
             @Override

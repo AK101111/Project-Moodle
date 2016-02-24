@@ -1,6 +1,7 @@
 package xyz.akedia.android.moodleonmobile.app;
 
 import android.app.Application;
+import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 import com.android.volley.RequestQueue;
@@ -42,6 +43,30 @@ public class MoodleOnMobile extends Application{
     public String getCookie() {
         return PreferenceManager.getDefaultSharedPreferences(this).getString("cookie","NULL");
     }
+    public void saveLoginCredentials(String username, String password) {
+        Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.putBoolean("isLoginCredentialsSaved",true);
+        editor.putString("savedUsername",username);
+        editor.putString("savedPassword",password);
+        editor.apply();
+    }
+    public void clearLoginCredentials() {
+        Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.putBoolean("isLoginCredentialsSaved",false);
+        editor.remove("savedUsername");
+        editor.remove("savedPassword");
+        editor.apply();
+    }
+    public boolean isLoginCredentialsSaved() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("isLoginCredentialsSaved",false);
+    }
+    public String getLoginUsername() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getString("savedUsername", "");
+    }
+    public String gettLoginPassword() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getString("savedPassword","");
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();

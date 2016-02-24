@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import xyz.akedia.android.moodleonmobile.model.Course;
 import xyz.akedia.android.moodleonmobile.model.CourseScheme;
+import xyz.akedia.android.moodleonmobile.model.Notification;
 import xyz.akedia.android.moodleonmobile.model.User;
 import xyz.akedia.android.moodleonmobile.model.Thread;
 /**
@@ -46,6 +47,7 @@ public class ParseResponse {
         }
         return courses;
     }
+
     public static ArrayList<Thread> parseThreadList(JSONArray threadList) throws JSONException {
         ArrayList<Thread> threads = new ArrayList<>(threadList.length());
         for (int i = 0; i < threadList.length(); i++) {
@@ -64,4 +66,8 @@ public class ParseResponse {
         String updatedAt = jsonObject.getString("updated_at");
         return new Thread(userId, description, title, createdAt,registeredCourseId,updatedAt, id);
     }
+
+//    public static Notification parseNotification(JSONObject notificationData) {
+//
+//    }
 }

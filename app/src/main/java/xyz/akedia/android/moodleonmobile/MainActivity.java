@@ -22,6 +22,7 @@ import com.astuetz.PagerSlidingTabStrip;
 import org.json.JSONObject;
 
 import xyz.akedia.android.moodleonmobile.Adapters.HomeScreenViewPagerAdapter;
+import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
 import xyz.akedia.android.moodleonmobile.uiElements.UserDetailsDialog;
 
 public class MainActivity extends AppCompatActivity {
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void onUserLogout() {
+        MoodleOnMobile.App.clearLoginCredentials();
         Intent i = new Intent(this,StartActivity.class);
         //TODO clear user object
         startActivity(i);
