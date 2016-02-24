@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         HomeScreenViewPagerAdapter pagerAdapter = new HomeScreenViewPagerAdapter(getSupportFragmentManager());
         String [] titles = {"Courses","Notifications","Grades"};
-        pagerAdapter.setVals(titles,titles.length);
+        pagerAdapter.setVals(titles, titles.length);
         pager.setAdapter(pagerAdapter);
         pager.setOffscreenPageLimit(titles.length - 1);
 
@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
             showCalendar();
             return true;
         }
-        if (id == R.id.action_settings) {
-            showSettings();
+        if (id == R.id.action_profile) {
+            showProfile();
             return true;
         }
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.finish();
     }
 
-    private void showSettings(){
+    private void showProfile(){
         Dialog dialog = new Dialog(MainActivity.this,R.style.DialogSlideAnimSmall);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_dialog_settings);

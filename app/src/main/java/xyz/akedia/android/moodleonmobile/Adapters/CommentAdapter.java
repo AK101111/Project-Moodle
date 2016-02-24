@@ -1,10 +1,7 @@
 package xyz.akedia.android.moodleonmobile.Adapters;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +11,6 @@ import java.util.List;
 
 import xyz.akedia.android.moodleonmobile.Comment;
 import xyz.akedia.android.moodleonmobile.R;
-import xyz.akedia.android.moodleonmobile.ThreadDetailsActivity;
 
 /**
  * Created by ashish on 24/2/16.
@@ -88,7 +84,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }else if (i == VIEW_TYPE_FOOTER){
             return new FooterViewHolder(mFooterView);
         } else {
-            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_comment, viewGroup, false);
+            View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_comment_list, viewGroup, false);
             CommentViewHolder commentViewHolder = new CommentViewHolder(v);
             return commentViewHolder;
         }

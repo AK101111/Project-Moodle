@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import xyz.akedia.android.moodleonmobile.Assignment;
+import xyz.akedia.android.moodleonmobile.AssignmentList;
 import xyz.akedia.android.moodleonmobile.Fragments.CourseAssignmentFragment;
 import xyz.akedia.android.moodleonmobile.Fragments.CourseGradesFragment;
 import xyz.akedia.android.moodleonmobile.Fragments.CourseThreadsFragment;
@@ -35,6 +37,14 @@ public class CourseDetailsAdapter extends FragmentPagerAdapter {
         }
         return threadList;
     }
+    private AssignmentList getDummyAssignmentList(){
+        AssignmentList assignmentList = new AssignmentList();
+        for(int i = 0; i < 12; i++){
+            Assignment assignment = new Assignment("You've a new assignment!","12-01-2016","2");
+            assignmentList.addAssignment(assignment);
+        }
+        return assignmentList;
+    }
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
@@ -46,7 +56,9 @@ public class CourseDetailsAdapter extends FragmentPagerAdapter {
                 fragment = tabCourseThread;
                 break;
             case 1:
-                fragment = new CourseAssignmentFragment();
+                CourseAssignmentFragment courseAssignmentFragment = new CourseAssignmentFragment();
+                courseAssignmentFragment.setVals(getDummyAssignmentList());
+                fragment = courseAssignmentFragment;
                 break;
             case 2:
                 fragment = new CourseGradesFragment();
