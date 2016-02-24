@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(Exception e) {
                 //TODO //case when logout unsucessfull
+                e.printStackTrace();
+                onUserLogout();
             }
         }).setUpDialog();
     }
