@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import xyz.akedia.android.moodleonmobile.model.Comment;
 import xyz.akedia.android.moodleonmobile.model.Course;
 import xyz.akedia.android.moodleonmobile.model.CourseScheme;
 import xyz.akedia.android.moodleonmobile.model.Notification;
@@ -70,4 +71,23 @@ public class ParseResponse {
 //    public static Notification parseNotification(JSONObject notificationData) {
 //
 //    }
+
+    public static ArrayList<Comment> parseComments(JSONArray comments, JSONArray updateTime, JSONArray commentUsers) throws JSONException{
+        int numberOfComments = comments.length();
+        ArrayList<Comment> commentsList = new ArrayList<>(numberOfComments);
+        for(int i = 0; i < numberOfComments; i++) {
+            commentsList.add(parseComment(comments.getJSONObject(i),updateTime.getString(i),commentUsers.getJSONObject(i)));
+        }
+        return commentsList;
+    };
+
+    private static Comment parseComment(JSONObject comment, String updateTime, JSONObject commentUser) throws JSONException{
+        int commentId = comment.getInt("id");
+        int commenterUserId = comment.getInt("user_id");
+        String commenterName = commentUser.getString("first_name") + " " + commentUser.getString("last_name");
+        String description = comment.getString("description");
+        String createdTime = updateTime;
+        return new Comment(commentId,commenterUserId,commenterName,description,createdTime);
+    };
+
 }

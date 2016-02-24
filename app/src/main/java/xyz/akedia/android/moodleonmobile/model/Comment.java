@@ -5,10 +5,10 @@ package xyz.akedia.android.moodleonmobile.model;
  */
 public class Comment {
     private int commentId;
-    private int commenterUserId;
-    private String commenterName;
-    private String description;
-    private String createdTime;
+    public int commenterUserId;
+    public String commenterName;
+    public String description;
+    public String createdTime;
 
     public Comment(int commentId, int commenterUserId, String commenterName, String description, String createdTime) {
         this.commentId = commentId;

@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import xyz.akedia.android.moodleonmobile.Comment;
 import xyz.akedia.android.moodleonmobile.R;
+import xyz.akedia.android.moodleonmobile.model.Comment;
+import xyz.akedia.android.moodleonmobile.model.User;
+import xyz.akedia.android.moodleonmobile.model.Users;
 
 /**
  * Created by ashish on 24/2/16.
@@ -94,9 +97,9 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (viewHolder instanceof CommentViewHolder) {
             CommentViewHolder commentViewHolder = (CommentViewHolder) viewHolder;
             Comment comment = commentList.get(i-1);
-            commentViewHolder.creatorName.setText(comment.creatorName);
-            commentViewHolder.content.setText(comment.content);
-            commentViewHolder.createdDate.setText(comment.createdDate);
+            commentViewHolder.creatorName.setText(comment.commenterName);
+            commentViewHolder.content.setText(comment.description);
+            commentViewHolder.createdDate.setText(comment.createdTime);
         }else if(viewHolder instanceof HeaderViewHolder){
             //set thread details(title, description etc.) here
             HeaderViewHolder headerViewHolder = (HeaderViewHolder)viewHolder;
@@ -107,5 +110,9 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public void updateCommentList(ArrayList<Comment> newComments) {
+        commentList = newComments;
     }
 }

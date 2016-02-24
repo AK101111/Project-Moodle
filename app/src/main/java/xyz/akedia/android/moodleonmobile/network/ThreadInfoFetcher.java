@@ -50,7 +50,7 @@ public class ThreadInfoFetcher {
                     Log.d(TAG, "received response : " + response);
                     JSONObject courseData = response.getJSONObject("course");
                     JSONObject threadData = response.getJSONObject("thread");
-                    JSONArray comments = response.getJSONArray("thread");
+                    JSONArray comments = response.getJSONArray("comments");
                     JSONArray updateTime = response.getJSONArray("times_readable");
                     JSONArray commentUsers = response.getJSONArray("comment_users");
                     responseHandler.onSuccess(courseData,threadData,comments,updateTime,commentUsers);

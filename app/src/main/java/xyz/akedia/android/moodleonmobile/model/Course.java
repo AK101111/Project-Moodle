@@ -78,6 +78,15 @@ public class Course {
     }
 
     public void set_thread(ArrayList<Thread> threadsList){ threads = threadsList;}
+
+    public Thread findThread(int threadId) {
+        for(int i = 0; i < threads.size(); i++) {
+            if(threads.get(i).id == threadId)
+                return threads.get(i);
+        }
+        return null;
+    }
+
 //    public void update_assignment(JSONObject updated) throws JSONException{
 //        String assgnCode = updated.getString("id");
 //        for(int i=0; i<assignment.length; ++i){
