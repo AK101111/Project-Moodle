@@ -9,25 +9,35 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 import xyz.akedia.android.moodleonmobile.Adapters.CourseDetailsAdapter;
 import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
 import xyz.akedia.android.moodleonmobile.model.Course;
+import xyz.akedia.android.moodleonmobile.controllers.ThreadListController;
+import xyz.akedia.android.moodleonmobile.model.*;
+import xyz.akedia.android.moodleonmobile.model.Thread;
+import xyz.akedia.android.moodleonmobile.network.AddNewThread;
 
 public class CourseDetailsActivity extends AppCompatActivity {
 
     public static String courseCode;
     FloatingActionButton fab;
+    ViewPager pager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +56,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                 showNewThreadDialog();
             }
         });
-        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager = (ViewPager) findViewById(R.id.pager);
         CourseDetailsAdapter pagerAdapter = new CourseDetailsAdapter(getSupportFragmentManager());
         String [] titles = {"Threads","Assignments","Grades"};
         pagerAdapter.setVals(titles, titles.length);
@@ -101,9 +111,18 @@ public class CourseDetailsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     private void showNewThreadDialog(){
-        Dialog dialog = new Dialog(CourseDetailsActivity.this,R.style.DialogSlideAnimBottom);
+        final Dialog dialog = new Dialog(CourseDetailsActivity.this,R.style.DialogSlideAnimBottom);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_new_thread);
+        dialog.findViewById(R.id.create_thread_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = ((TextView)dialog.findViewById(R.id.title)).getText().toString();
+                String description = ((TextView)dialog.findViewById(R.id.description)).getText().toString();
+                AddNewThread addNewThread = new AddNewThread(getNewThreadResponseHandler(dialog),title,description,courseCode);
+                addNewThread.getAddNewThreadResponse();
+            }
+        });
         setDialogLayoutParams(dialog);
     }
 
@@ -137,6 +156,39 @@ public class CourseDetailsActivity extends AppCompatActivity {
         dialog.show();
         dialog.getWindow().setAttributes(lp);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+    }
+
+    private AddNewThread.AddNewThreadResponseHandler getNewThreadResponseHandler(final Dialog dialog){
+        AddNewThread.AddNewThreadResponseHandler addNewThreadResponseHandler = new AddNewThread.AddNewThreadResponseHandler() {
+            @Override
+            public void onSuccess(JSONObject response) {
+                Log.d("addNewThread", response.toString());
+                try{
+                    boolean resp = response.getBoolean("success");
+                    String msg = "Thread created successfully!";
+                    if(!resp)
+                        msg = "There was some error while creating the thread.Please try again!";
+                    else {
+                        dialog.dismiss();
+                    }
+                    Toast.makeText(CourseDetailsActivity.this,msg,Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure() {
+                Log.d("addNewThread","failure");
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.d("addNewThread",e.toString());
+                e.printStackTrace();
+            }
+        };
+        return addNewThreadResponseHandler;
     }
 
 }

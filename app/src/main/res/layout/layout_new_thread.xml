@@ -31,6 +31,7 @@
             <EditText
                 android:id="@+id/title"
                 android:hint="Title"
+                android:textColor="#363636"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
@@ -40,12 +41,14 @@
                 android:maxLines="4"
                 android:hint="Description"
                 android:gravity="top"
+                android:textColor="#363636"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <Button
+                android:id="@+id/create_thread_button"
                 android:text="Create thread"
                 android:textColor="#ffffff"
                 android:padding="10dp"

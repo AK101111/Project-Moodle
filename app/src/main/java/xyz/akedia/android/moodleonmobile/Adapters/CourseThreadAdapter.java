@@ -79,7 +79,7 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
         final Thread thread = threadList.get(i);
         courseViewHolder.threadTitle.setText(thread.getTitle());
         courseViewHolder.threadSummary.setText(thread.getDescription());
-        courseViewHolder.threadDate.setText(thread.getCreatedAt());
+        courseViewHolder.threadDate.setText(Utils.parseDate(thread.getCreatedAt()));
         courseViewHolder.threadId = thread.getThreadId();
     }
     @Override
