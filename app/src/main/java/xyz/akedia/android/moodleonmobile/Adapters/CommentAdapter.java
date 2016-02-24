@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,35 +44,49 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             commentIndicator = (TextView)itemView.findViewById(R.id.comment_indicator);
         }
     }
+    public static class FooterViewHolder extends RecyclerView.ViewHolder {
+        FooterViewHolder(final View itemView) {
+            super(itemView);
+        }
+    }
     List<Comment> commentList;
-    View mHeaderView;
+    View mHeaderView,mFooterView;
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
+    private static final int VIEW_TYPE_FOOTER = 2;
 //    Activity parentActivity;
 
-    public CommentAdapter(List<Comment> list,View headerView){
+    public CommentAdapter(List<Comment> list,View headerView,View footerView){
         this.commentList = list;
         this.mHeaderView = headerView;
+        this.mFooterView = footerView;
 //        this.parentActivity = activity;
     }
     @Override
     public int getItemCount() {
         if (mHeaderView == null) {
-            return commentList.size();
-        } else {
             return commentList.size() + 1;
+        } else {
+            return commentList.size() + 2;
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        return (position == 0) ? VIEW_TYPE_HEADER : VIEW_TYPE_ITEM;
+        if(position==0)
+            return VIEW_TYPE_HEADER;
+        else if(position == commentList.size() + 1)
+            return VIEW_TYPE_FOOTER;
+        else
+            return VIEW_TYPE_ITEM;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         if (i == VIEW_TYPE_HEADER) {
             return new HeaderViewHolder(mHeaderView);
+        }else if (i == VIEW_TYPE_FOOTER){
+            return new FooterViewHolder(mFooterView);
         } else {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_comment, viewGroup, false);
             CommentViewHolder commentViewHolder = new CommentViewHolder(v);
@@ -86,7 +101,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             commentViewHolder.creatorName.setText(comment.creatorName);
             commentViewHolder.content.setText(comment.content);
             commentViewHolder.createdDate.setText(comment.createdDate);
-        }else{
+        }else if(viewHolder instanceof HeaderViewHolder){
             //set thread details(title, description etc.) here
             HeaderViewHolder headerViewHolder = (HeaderViewHolder)viewHolder;
             if(getItemCount() == 1)

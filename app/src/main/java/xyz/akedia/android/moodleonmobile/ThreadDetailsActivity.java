@@ -41,7 +41,8 @@ public class ThreadDetailsActivity extends AppCompatActivity {
         commentList.setHasFixedSize(true);
         commentList.setLayoutManager(llm);
         View headerView = getLayoutInflater().inflate(R.layout.layout_thread_view,null,false);
-        CommentAdapter commentAdapter = new CommentAdapter(getDummyComments(),headerView);
+        View footerView = getLayoutInflater().inflate(R.layout.layout_comment_footer,null,false);
+        CommentAdapter commentAdapter = new CommentAdapter(getDummyComments(),headerView,footerView);
         commentList.setAdapter(commentAdapter);
     }
     private List<Comment> getDummyComments(){
