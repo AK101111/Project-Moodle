@@ -22,12 +22,14 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
         TextView creatorName, createdDate, content;
+        CardView cardView;
 
         CommentViewHolder(final View itemView) {
             super(itemView);
             creatorName = (TextView)itemView.findViewById(R.id.creator_name);
             createdDate = (TextView)itemView.findViewById(R.id.created_date);
             content = (TextView)itemView.findViewById(R.id.content);
+            cardView = (CardView)itemView.findViewById(R.id.card_view);
         }
     }
     public static class HeaderViewHolder extends RecyclerView.ViewHolder {
