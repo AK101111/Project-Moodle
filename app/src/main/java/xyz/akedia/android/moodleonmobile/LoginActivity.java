@@ -1,5 +1,6 @@
 package xyz.akedia.android.moodleonmobile;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import xyz.akedia.android.moodleonmobile.network.LoginHelper;
 import xyz.akedia.android.moodleonmobile.utils.ParseResponse;
 
 public class LoginActivity extends AppCompatActivity {
+    private ProgressDialog dialog;
     private static final String TAG = LoginActivity.class.getName();
 
     public String getFilledUsername() {
@@ -32,27 +35,30 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        dialog = new ProgressDialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Android added it. Node idea why. //TODO figure why?
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(checkSavedCredentials()) {
-            performAutoLogin();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if(checkSavedCredentials()) {
+//            performAutoLogin();
+//        }
+//    }
 
-    private boolean checkSavedCredentials() {
-        return MoodleOnMobile.App.isLoginCredentialsSaved();
-    }
-    private void performAutoLogin() {
-        String userName = MoodleOnMobile.App.getLoginUsername();
-        String password = MoodleOnMobile.App.gettLoginPassword();
-        if(!userName.isEmpty() && !password.isEmpty()) {
-            performLogin(userName,password);
-        }
-    }
+//    private boolean checkSavedCredentials() {
+//        return MoodleOnMobile.App.isLoginCredentialsSaved();
+//    }
+//    private void performAutoLogin() {
+//        String userName = MoodleOnMobile.App.getLoginUsername();
+//        String password = MoodleOnMobile.App.gettLoginPassword();
+//        if(!userName.isEmpty() && !password.isEmpty()) {
+//            performLogin(userName,password);
+//        }
+//    }
 
     private void saveUserData(JSONObject userData) {
         try {
@@ -64,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onLoginSuccess(JSONObject userData) {
         try {
+            dialog.dismiss();
             Log.d(TAG, userData.toString(4));
             saveUserData(userData);
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -77,12 +84,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void onLoginFailure() {
+        dialog.dismiss();
         Toast.makeText(this, "Login Failed", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Login failed");
         //TODO
     }
 
     private void onLoginError(Exception exception) {
+        dialog.dismiss();
         Toast.makeText(this, "Error:"+exception, Toast.LENGTH_LONG).show();
         Log.e(TAG, "Error during login: " + exception);
         exception.printStackTrace();
@@ -113,8 +122,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void doLogin(View view) {
+        dialog.setMessage("Signing in...");
+        dialog.show();
         MoodleOnMobile.App.saveLoginCredentials(getFilledUsername(),getFilledPassword());
         performLogin(getFilledUsername(),getFilledPassword());
     }
-
 }
