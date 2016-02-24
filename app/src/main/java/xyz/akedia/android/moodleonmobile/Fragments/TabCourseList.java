@@ -34,7 +34,7 @@ public class TabCourseList extends Fragment {
     public void setVals(CourseList list){
         this.courseList = list;
     }
-    private void init(View view){
+    private void init(final View view){
         final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.courseList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
@@ -62,8 +62,16 @@ public class TabCourseList extends Fragment {
 
             @Override
             public void onUpdate(CourseList updatedCourseList) {
-                adapter.updateCourseList(updatedCourseList);
-                recyclerView.setAdapter(adapter);
+                if(updatedCourseList.courseCount() > 0) {
+                    adapter.updateCourseList(updatedCourseList);
+                    recyclerView.setAdapter(adapter);
+                    view.findViewById(R.id.no_course_layout).setVisibility(View.GONE);
+                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                }else{
+                    view.findViewById(R.id.no_course_layout).setVisibility(View.VISIBLE);
+                    swipeRefreshLayout.setVisibility(View.GONE);
+                }
+
             }
         });
         adapter.updateCourseList(initialCourseList);
@@ -81,8 +89,15 @@ public class TabCourseList extends Fragment {
                     public void onResponse(final CourseList newCourseList) {
 //                        swipeRefreshLayout.setRefreshing(true);
 //                        CourseListAdapter adapter = new CourseListAdapter(newCourseList,getActivity());
-                        adapter.updateCourseList(newCourseList);
-                        recyclerView.setAdapter(adapter);
+                        if(newCourseList.courseCount() > 0) {
+                            adapter.updateCourseList(newCourseList);
+                            recyclerView.setAdapter(adapter);
+                            view.findViewById(R.id.no_course_layout).setVisibility(View.GONE);
+                            swipeRefreshLayout.setVisibility(View.VISIBLE);
+                        }else{
+                            view.findViewById(R.id.no_course_layout).setVisibility(View.VISIBLE);
+                            swipeRefreshLayout.setVisibility(View.GONE);
+                        }
 //                        swipeRefreshLayout.setRefreshing(false);
                     }
 

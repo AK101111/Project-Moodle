@@ -26,10 +26,12 @@
     <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/InOut.Window</item>
     </style>
+
     <style name="InOut.Window.Small" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/anim_in_small_dialog</item>
         <item name="android:windowExitAnimation">@anim/anim_out_small_dialog</item>
     </style>
+
     <style name="InOut.Window.Bottom" parent="@android:style/Animation.Activity">
         <item name="android:windowEnterAnimation">@anim/anim_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/anim_out_bottom</item>
@@ -38,6 +40,7 @@
     <style name="DialogSlideAnimSmall" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/InOut.Window.Small</item>
     </style>
+
     <style name="DialogSlideAnimBottom" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/InOut.Window.Bottom</item>
     </style>
