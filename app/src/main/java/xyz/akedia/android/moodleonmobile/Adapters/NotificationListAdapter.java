@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,9 @@ import xyz.akedia.android.moodleonmobile.CourseDetailsActivity;
 import xyz.akedia.android.moodleonmobile.CourseList;
 import xyz.akedia.android.moodleonmobile.NotificationList;
 import xyz.akedia.android.moodleonmobile.R;
+import xyz.akedia.android.moodleonmobile.ThreadDetailsActivity;
 import xyz.akedia.android.moodleonmobile.model.Notification;
+import xyz.akedia.android.moodleonmobile.utils.Utils;
 
 /**
  * Created by ashish on 24/2/16.
@@ -32,12 +35,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             cv = (CardView)itemView.findViewById(R.id.card_view);
             description = (TextView)itemView.findViewById(R.id.notification_description);
             date = (TextView)itemView.findViewById(R.id.notification_date);
-
-            cv.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    //Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
     NotificationList notificationList;
@@ -68,8 +65,17 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     @Override
     public void onBindViewHolder(NotificationViewHolder courseViewHolder, int i) {
         Notification notification = notificationList.getNotificationAt(i);
-        courseViewHolder.description.setText(notification.description);
-        courseViewHolder.date.setText(notification.createdAt);
+        courseViewHolder.description.setText(Html.fromHtml(notification.description));
+        courseViewHolder.date.setText(Utils.parseDate(notification.createdAt));
+        courseViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(parentActivity, ThreadDetailsActivity.class);
+//                intent.putExtra("threadId",thread.id + "");
+//                parentActivity.startActivity(intent);
+            }
+        });
     }
 
     @Override

@@ -1,6 +1,7 @@
 package xyz.akedia.android.moodleonmobile.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import xyz.akedia.android.moodleonmobile.Assignment;
+import xyz.akedia.android.moodleonmobile.AssignmentDetailsActivity;
 import xyz.akedia.android.moodleonmobile.AssignmentList;
 import xyz.akedia.android.moodleonmobile.NotificationList;
 import xyz.akedia.android.moodleonmobile.R;
 import xyz.akedia.android.moodleonmobile.model.Notification;
+import xyz.akedia.android.moodleonmobile.utils.Utils;
 
 /**
  * Created by ashish on 24/2/16.
@@ -31,12 +34,6 @@ public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAd
             assignmentName = (TextView)itemView.findViewById(R.id.assignment_name);
             dateCreated = (TextView)itemView.findViewById(R.id.date);
             lateDaysAllowed = (TextView)itemView.findViewById(R.id.late_days_allowed);
-
-            cv.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    //Toast.makeText(itemView.getContext(),"Clicked",Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
     AssignmentList assignmentList;
@@ -65,10 +62,17 @@ public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAd
     }
     @Override
     public void onBindViewHolder(AssignmentViewHolder assignmentViewHolder, int i) {
-        Assignment assignment = assignmentList.getAssignmentAt(i);
+        final Assignment assignment = assignmentList.getAssignmentAt(i);
         assignmentViewHolder.assignmentName.setText(assignment.assignmentName);
-        assignmentViewHolder.dateCreated.setText(assignment.dateCreated);
-        assignmentViewHolder.lateDaysAllowed.setText("Late days allowed : "+assignment.lateDaysAllowed);
+        assignmentViewHolder.dateCreated.setText(Utils.parseDate(assignment.dateCreated));
+        assignmentViewHolder.lateDaysAllowed.setText("Deadline : "+assignment.deadLine);
+        assignmentViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Intent intent = new Intent(parentActivity, AssignmentDetailsActivity.class);
+                intent.putExtra("assignmentData",assignment);
+                parentActivity.startActivity(intent);
+            }
+        });
     }
 
     @Override

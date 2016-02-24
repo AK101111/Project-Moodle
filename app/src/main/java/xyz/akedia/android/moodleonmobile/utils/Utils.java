@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -77,5 +79,15 @@ public class Utils {
 //        retnotification.set_init(notification);
 //        return retnotification;
 //    }
+    public static String parseDate(String oldDate){
+        String date = oldDate;
+        try {
+            Date d = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(oldDate);
+            date = new SimpleDateFormat("dd-MM-yyyy").format(d);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return date;
+    }
 
 }

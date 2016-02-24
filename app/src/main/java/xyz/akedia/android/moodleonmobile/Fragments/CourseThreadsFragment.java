@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class CourseThreadsFragment extends Fragment {
     private final static String TAG = CourseThreadsFragment.class.getSimpleName();
     ArrayList<Thread> threadList;
     SwipeRefreshLayout swipeRefreshLayout;
+    TextView notice;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.layout_course_thread_fragment,container,false);
@@ -35,7 +37,7 @@ public class CourseThreadsFragment extends Fragment {
         this.threadList = list;
     }
 
-    private void init(View view){
+    private void init(final View view){
         final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.threadList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
@@ -43,6 +45,7 @@ public class CourseThreadsFragment extends Fragment {
 
         final CourseThreadAdapter adapter = new CourseThreadAdapter(threadList,getActivity());
         recyclerView.setAdapter(adapter);
+        notice = (TextView)view.findViewById(R.id.no_thread_layout);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipe_refresh_layout);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent);
         ArrayList<Thread> initialThreadList = ThreadListController.getThreadListSynchronously(new ThreadListController.SyncResponseHandler1(){
@@ -51,6 +54,9 @@ public class CourseThreadsFragment extends Fragment {
                 swipeRefreshLayout.post(new Runnable() {
                     @Override
                     public void run() {
+                        notice.setText("Loading threads...");
+                        notice.setVisibility(View.VISIBLE);
+//                        swipeRefreshLayout.setVisibility(View.GONE);
                         swipeRefreshLayout.setRefreshing(true);
                     }
                 });
@@ -61,8 +67,16 @@ public class CourseThreadsFragment extends Fragment {
             }
             @Override
             public void onUpdate(ArrayList<Thread> updatedThreadList){
-                adapter.updateThreadList(updatedThreadList);
-                recyclerView.setAdapter(adapter);
+                if(updatedThreadList.size() > 0) {
+                    adapter.updateThreadList(updatedThreadList);
+                    recyclerView.setAdapter(adapter);
+                    notice.setVisibility(View.GONE);
+                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                }else{
+                    notice.setVisibility(View.VISIBLE);
+                    notice.setText("No threads to view");
+                    swipeRefreshLayout.setVisibility(View.GONE);
+                }
             };
         });
 //        adapter.updateThreadList(initialThreadList);
@@ -76,8 +90,16 @@ public class CourseThreadsFragment extends Fragment {
                 ThreadListController.getThreadListAsync(new ThreadListController.AsyncResponseHandler1() {
                     @Override
                     public void onResponse(final ArrayList<Thread> newThreadList) {
-                        adapter.updateThreadList(newThreadList);
-                        recyclerView.setAdapter(adapter);
+                        if(newThreadList.size() > 0) {
+                            adapter.updateThreadList(newThreadList);
+                            recyclerView.setAdapter(adapter);
+                            notice.setVisibility(View.GONE);
+                            swipeRefreshLayout.setVisibility(View.VISIBLE);
+                        }else{
+                            notice.setVisibility(View.VISIBLE);
+                            notice.setText("No courses to view");
+                            swipeRefreshLayout.setVisibility(View.GONE);
+                        }
                     }
 
                     @Override

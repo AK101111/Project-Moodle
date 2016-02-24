@@ -17,6 +17,7 @@ import xyz.akedia.android.moodleonmobile.CourseDetailsActivity;
 import xyz.akedia.android.moodleonmobile.R;
 import xyz.akedia.android.moodleonmobile.ThreadDetailsActivity;
 import xyz.akedia.android.moodleonmobile.model.Thread;
+import xyz.akedia.android.moodleonmobile.utils.Utils;
 
 /**
  * Created by ashish on 21/2/16.
@@ -67,13 +68,14 @@ public class CourseThreadAdapter extends RecyclerView.Adapter<CourseThreadAdapte
     }
     @Override
     public CourseViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        Log.d("here",i+"");
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_course_thread, viewGroup, false);
         CourseViewHolder courseViewHolder = new CourseViewHolder(v,parentActivity);
         return courseViewHolder;
     }
     @Override
     public void onBindViewHolder(CourseViewHolder courseViewHolder, int i) {
-        Thread thread = threadList.get(i);
+        final Thread thread = threadList.get(i);
         courseViewHolder.threadTitle.setText(thread.getTitle());
         courseViewHolder.threadSummary.setText(thread.getDescription());
         courseViewHolder.threadDate.setText(thread.getCreatedAt());
