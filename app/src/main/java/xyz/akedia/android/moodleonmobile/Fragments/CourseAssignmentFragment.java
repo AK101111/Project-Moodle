@@ -76,7 +76,7 @@ public class CourseAssignmentFragment extends Fragment{
         assignmentFetcher.getAssignments();
     }
     private AssignmentFetcher.AssignmentResponseHandler getResponseHandler(){
-        AssignmentFetcher.AssignmentResponseHandler responseHandler = new AssignmentFetcher.AssignmentResponseHandler() {
+        final AssignmentFetcher.AssignmentResponseHandler responseHandler = new AssignmentFetcher.AssignmentResponseHandler() {
             @Override
             public void onSuccess(JSONArray assignments) {
                 Log.d("Assignments", assignments.toString());
@@ -99,10 +99,10 @@ public class CourseAssignmentFragment extends Fragment{
                     adapter = new AssignmentListAdapter(assignmentList, getActivity());
                     recyclerView.setAdapter(adapter);
                     swipeRefreshLayout.setRefreshing(false);
-                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
                     notice.setVisibility(View.GONE);
                 }else{
-                    swipeRefreshLayout.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.GONE);
                     notice.setText("No assignments to view");
                     notice.setVisibility(View.VISIBLE);
                 }
@@ -111,15 +111,15 @@ public class CourseAssignmentFragment extends Fragment{
             @Override
             public void onFailure() {
                 swipeRefreshLayout.setRefreshing(false);
-                swipeRefreshLayout.setVisibility(View.GONE);
-                notice.setText("can't connect to the internet");
+                recyclerView.setVisibility(View.GONE);
+                notice.setText("Can't connect to the internet");
                 notice.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onError(Exception e) {
                 swipeRefreshLayout.setRefreshing(false);
-                swipeRefreshLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
                 notice.setText("Can't connect to the internet");
                 notice.setVisibility(View.VISIBLE);
             }

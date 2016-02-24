@@ -11,22 +11,25 @@ import java.util.LinkedHashMap;
  * Created by arnavkansal on 20/02/16.
  */
 public class Grades {
-    private String weightage;
-    private String user_id;
-    private String name;
-    private String out_of;
-    private String registered_course_id;
-    private String score;
-    public String id;
+    public String weightage;
+    public String courseCode;
+    //private String user_id;
+    public String name;
+    private String outOf;
+    private String scoreOutOf;
+//    private String registered_course_id;
+    public String score;
+    //public String id;
 
-    public void set_init(LinkedHashMap<String, String> grades){
-        weightage = grades.get("weightage");
-        user_id = grades.get("user_id");
-        name = grades.get("name");
-        out_of = grades.get("out_of");
-        registered_course_id = grades.get("registered_course_id");
-        score = grades.get("score");
-        id = grades.get("id");
+    public Grades(String weight, String n, String scoreOf, String of){
+        weightage = weight;
+        name = n;
+        outOf = of;
+        scoreOutOf = scoreOf;
+        score = scoreOutOf+"/"+outOf;
+    }
+    public void setCourseCode(String code){
+        courseCode = code;
     }
 
 //    public void update(JSONObject jsonObject) throws JSONException{

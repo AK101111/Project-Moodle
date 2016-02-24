@@ -10,17 +10,21 @@
         android:layout_centerInParent="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/notificationList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/notificationList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:id="@+id/no_notification_layout"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:text="No notifications"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
-    <TextView
-        android:id="@+id/no_notification_layout"
-        android:visibility="gone"
-        android:layout_centerInParent="true"
-        android:text="No notifications"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 </RelativeLayout>
