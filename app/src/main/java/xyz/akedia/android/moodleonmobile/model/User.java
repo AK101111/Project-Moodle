@@ -90,6 +90,13 @@ public class User implements Serializable {
         return courses;
     }
 
+    public Course findCourse(String coursecode) {
+        for(int i=0; i<courses.size();++i){
+            if(courses.get(i).getCode().equals(coursecode.toLowerCase())) return courses.get(i);
+        }
+        return null;
+    }
+
 //    public void flush(){
 //        courses = null;
 //        userDetails = null;

@@ -42,7 +42,7 @@ public class CourseDetailsAdapter extends FragmentPagerAdapter {
             case 0:
                 CourseThreadsFragment tabCourseThread = new CourseThreadsFragment();
                 //put the courseThreadList here
-                tabCourseThread.setVals(getDummyCourseThreadList());
+                //tabCourseThread.setVals(getDummyCourseThreadList());
                 fragment = tabCourseThread;
                 break;
             case 1:

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import xyz.akedia.android.moodleonmobile.model.Course;
 import xyz.akedia.android.moodleonmobile.model.CourseScheme;
 import xyz.akedia.android.moodleonmobile.model.User;
-
+import xyz.akedia.android.moodleonmobile.model.Thread;
 /**
  * Created by akedia on 23/02/16.
  */
@@ -45,5 +45,23 @@ public class ParseResponse {
             courses.add(parseCourseData(courseList.getJSONObject(i)));
         }
         return courses;
+    }
+    public static ArrayList<Thread> parseThreadList(JSONArray threadList) throws JSONException {
+        ArrayList<Thread> threads = new ArrayList<>(threadList.length());
+        for (int i = 0; i < threadList.length(); i++) {
+            threads.add(parseThreadData(threadList.getJSONObject(i)));
+        }
+        return threads;
+    }
+
+    private static Thread parseThreadData(JSONObject jsonObject) throws JSONException{
+        int userId = jsonObject.getInt("user_id");
+        String description = jsonObject.getString("description");
+        String title = jsonObject.getString("title");
+        String createdAt = jsonObject.getString("created_at");
+        int id = jsonObject.getInt("id");
+        int registeredCourseId = jsonObject.getInt("registered_course_id");
+        String updatedAt = jsonObject.getString("updated_at");
+        return new Thread(userId, description, title, createdAt,registeredCourseId,updatedAt, id);
     }
 }
