@@ -9,6 +9,8 @@ import xyz.akedia.android.moodleonmobile.CourseList;
 import xyz.akedia.android.moodleonmobile.Fragments.TabCourseList;
 import xyz.akedia.android.moodleonmobile.Fragments.TabGrades;
 import xyz.akedia.android.moodleonmobile.Fragments.TabNotifications;
+import xyz.akedia.android.moodleonmobile.NotificationList;
+import xyz.akedia.android.moodleonmobile.model.Notification;
 
 /**
  * Created by ashish on 15/2/16.
@@ -45,6 +47,14 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
         }
         return courseList;
     }
+    private NotificationList getDummyNotificationList(){
+        NotificationList notificationList = new NotificationList();
+        for(int i = 0; i < 6; i++){
+            Notification notification = new Notification("","Random notification",0,"12-02-2016","");
+            notificationList.addNotification(notification);
+        }
+        return notificationList;
+    }
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
@@ -56,7 +66,9 @@ public class HomeScreenViewPagerAdapter extends FragmentPagerAdapter {
                 fragment = tabCourseList;
                 break;
             case 1:
-                fragment = new TabNotifications();
+                TabNotifications tabNotifications = new TabNotifications();
+                tabNotifications.setVals(getDummyNotificationList());
+                fragment = tabNotifications;
                 break;
             case 2:
                 fragment = new TabGrades();
