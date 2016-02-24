@@ -74,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Toast.makeText(this, "Login Success", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Login Success", Toast.LENGTH_LONG).show();
         //TODO
     }
 
