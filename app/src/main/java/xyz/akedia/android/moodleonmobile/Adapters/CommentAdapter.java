@@ -12,6 +12,7 @@ import java.util.List;
 
 import xyz.akedia.android.moodleonmobile.R;
 import xyz.akedia.android.moodleonmobile.model.Comment;
+import xyz.akedia.android.moodleonmobile.model.Thread;
 import xyz.akedia.android.moodleonmobile.model.User;
 import xyz.akedia.android.moodleonmobile.model.Users;
 
@@ -49,13 +50,15 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
     List<Comment> commentList;
+    Thread thread;
     View mHeaderView,mFooterView;
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
     private static final int VIEW_TYPE_FOOTER = 2;
 //    Activity parentActivity;
 
-    public CommentAdapter(List<Comment> list,View headerView,View footerView){
+    public CommentAdapter(Thread thread, List<Comment> list,View headerView,View footerView){
+        this.thread = thread;
         this.commentList = list;
         this.mHeaderView = headerView;
         this.mFooterView = footerView;
@@ -103,10 +106,25 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }else if(viewHolder instanceof HeaderViewHolder){
             //set thread details(title, description etc.) here
             HeaderViewHolder headerViewHolder = (HeaderViewHolder)viewHolder;
-            if(getItemCount() == 1)
+            setHeader(headerViewHolder);
+            if(commentList == null || commentList.isEmpty())
                 headerViewHolder.commentIndicator.setText("No comments to view");
         }
     }
+
+    private void setHeader(HeaderViewHolder headerViewHolder) {
+        if(thread != null) {
+            String title = thread.getTitle();
+            String description = thread.getDescription();
+            String createdDate = thread.getCreatedAt();
+            String updatedDate = thread.getUpdatedAt();
+            headerViewHolder.threadTitle.setText(title);
+            headerViewHolder.threadDescription.setText(description);
+            headerViewHolder.created.setText(String.format("Created %s", createdDate));
+            headerViewHolder.lastUpdated.setText(String.format("Last Updated %s", updatedDate));
+        }
+    }
+
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);

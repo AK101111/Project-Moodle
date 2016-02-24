@@ -22,14 +22,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.akedia.android.moodleonmobile.Adapters.CommentAdapter;
+import xyz.akedia.android.moodleonmobile.app.MoodleOnMobile;
 import xyz.akedia.android.moodleonmobile.controllers.AsyncResponseHandler;
 import xyz.akedia.android.moodleonmobile.controllers.ThreadDetailsController;
 import xyz.akedia.android.moodleonmobile.model.Comment;
+import xyz.akedia.android.moodleonmobile.model.Thread;
 
 public class ThreadDetailsActivity extends AppCompatActivity {
 
     public static String courseCode;
     public static int threadId;
+    Thread thread;
 
     SwipeRefreshLayout swipeRefreshLayout;
     @Override
@@ -39,6 +42,12 @@ public class ThreadDetailsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         courseCode = getIntent().getStringExtra("courseCode");
         threadId = getIntent().getIntExtra("threadId", 1);
+
+        try {
+            thread = MoodleOnMobile.getUser().findCourse(courseCode).findThread(threadId);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         toolbar.setTitle("Thread details");
         setSupportActionBar(toolbar);
         init();
@@ -51,7 +60,7 @@ public class ThreadDetailsActivity extends AppCompatActivity {
         View headerView = getLayoutInflater().inflate(R.layout.layout_thread_view,null,false);
         View footerView = getLayoutInflater().inflate(R.layout.layout_comment_footer,null,false);
 //        CommentAdapter commentAdapter = new CommentAdapter(getDummyComments(),headerView,footerView);
-        final CommentAdapter commentAdapter = new CommentAdapter(new ArrayList<Comment>(),headerView,footerView);
+        final CommentAdapter commentAdapter = new CommentAdapter(thread,new ArrayList<Comment>(),headerView,footerView);
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_refresh_layout);
 
         ArrayList<Comment> initialCommentList = ThreadDetailsController.getCommentListSync(courseCode,threadId, new ThreadDetailsController.SyncResponseHandler() {
