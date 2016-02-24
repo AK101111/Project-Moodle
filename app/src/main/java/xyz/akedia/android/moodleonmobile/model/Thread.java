@@ -62,8 +62,11 @@ public class Thread {
         this.id = id;
     }
 
-    public int userId() {
+    public int getUserId() {
         return userId;
+    }
+    public int getThreadId() {
+        return id;
     }
     public String getDescription(){
         return description;
