@@ -72,11 +72,11 @@ public class TabCourseList extends Fragment {
                     adapter.updateCourseList(updatedCourseList);
                     recyclerView.setAdapter(adapter);
                     notice.setVisibility(View.GONE);
-                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
                 }else{
                     notice.setVisibility(View.VISIBLE);
                     notice.setText("No courses to view");
-                    swipeRefreshLayout.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.GONE);
                 }
 
             }
@@ -100,11 +100,11 @@ public class TabCourseList extends Fragment {
                             adapter.updateCourseList(newCourseList);
                             recyclerView.setAdapter(adapter);
                             notice.setVisibility(View.GONE);
-                            swipeRefreshLayout.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.VISIBLE);
                         }else{
                             notice.setVisibility(View.VISIBLE);
                             notice.setText("No courses to view");
-                            swipeRefreshLayout.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
                         }
 //                        swipeRefreshLayout.setRefreshing(false);
                     }

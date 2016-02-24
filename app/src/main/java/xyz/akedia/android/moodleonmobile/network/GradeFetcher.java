@@ -29,14 +29,13 @@ public class GradeFetcher {
     private final String cookie;
 
     public interface GradeResponseHandler{
-        void onSuccess(JSONArray grades);
+        void onSuccess(JSONObject grades);
         void onFailure();
         void onError(Exception e);
     }
 
-    public GradeFetcher(GradeResponseHandler gradeResponseHandler,String courseCode){
-        gradeUrl = MoodleOnMobile.App.getMoodleUrl() + ApiUrls.COURSE_THREADS_BASE
-                + courseCode +"/grades";
+    public GradeFetcher(GradeResponseHandler gradeResponseHandler,String url){
+        gradeUrl = url;
         requestQueue = MoodleOnMobile.getRequestQueue();
         responseHandler = gradeResponseHandler;
         cookie = MoodleOnMobile.App.getCookie();
@@ -48,8 +47,8 @@ public class GradeFetcher {
             public void onResponse(JSONObject response) {
                 try {
                     Log.d(TAG, "grades response : " + response);
-                    JSONArray grades = response.getJSONArray("grades");
-                    responseHandler.onSuccess(grades);
+                    //JSONArray grades = response.getJSONArray("grades");
+                    responseHandler.onSuccess(response);
                 } catch (Exception e) {
                     Log.d(TAG,"Error : " + e);
                     e.printStackTrace();

@@ -81,21 +81,26 @@ public class ThreadListController {
                         MoodleOnMobile.getUser().findCourse(coursecode).set_thread(updatedList);
                         MoodleOnMobile.getUser().setCurrentSem(currentSem);
                         handler.onUpdate(updatedList);
+                        handler.finishSyncWait();
                     } catch (Exception e) {
                         e.printStackTrace();
+                        handler.finishSyncWait();
                     }
                 }
 
                 @Override
                 public void onFailure() {
                     Log.d(TAG,"Failed to update thread list");
+                    handler.finishSyncWait();
                 }
 
                 @Override
                 public void onError(Exception e) {
                     e.printStackTrace();
+                    handler.finishSyncWait();
                 }
             }).getThreadList();
+            handler.onSyncWait();
             return threadArrayList;
         }
     };

@@ -26,6 +26,7 @@ public class CourseThreadsFragment extends Fragment {
     private final static String TAG = CourseThreadsFragment.class.getSimpleName();
     ArrayList<Thread> threadList;
     SwipeRefreshLayout swipeRefreshLayout;
+    RecyclerView recyclerView;
     TextView notice;
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class CourseThreadsFragment extends Fragment {
     }
 
     private void init(final View view){
-        final RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.threadList);
+        recyclerView = (RecyclerView)view.findViewById(R.id.threadList);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(llm);
@@ -71,11 +72,11 @@ public class CourseThreadsFragment extends Fragment {
                     adapter.updateThreadList(updatedThreadList);
                     recyclerView.setAdapter(adapter);
                     notice.setVisibility(View.GONE);
-                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
                 }else{
                     notice.setVisibility(View.VISIBLE);
                     notice.setText("No threads to view");
-                    swipeRefreshLayout.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.GONE);
                 }
             };
         });
@@ -92,11 +93,11 @@ public class CourseThreadsFragment extends Fragment {
                             adapter.updateThreadList(newThreadList);
                             recyclerView.setAdapter(adapter);
                             notice.setVisibility(View.GONE);
-                            swipeRefreshLayout.setVisibility(View.VISIBLE);
+                            recyclerView.setVisibility(View.VISIBLE);
                         }else{
                             notice.setVisibility(View.VISIBLE);
                             notice.setText("No courses to view");
-                            swipeRefreshLayout.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.GONE);
                         }
                     }
 

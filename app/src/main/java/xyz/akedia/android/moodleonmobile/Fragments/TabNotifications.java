@@ -98,10 +98,10 @@ public class TabNotifications extends Fragment {
                     adapter = new NotificationListAdapter(notificationList, getActivity());
                     recyclerView.setAdapter(adapter);
                     swipeRefreshLayout.setRefreshing(false);
-                    swipeRefreshLayout.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.VISIBLE);
                     notice.setVisibility(View.GONE);
                 }else {
-                    swipeRefreshLayout.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.GONE);
                     notice.setText("No notifications");
                     notice.setVisibility(View.VISIBLE);
                 }
@@ -110,7 +110,7 @@ public class TabNotifications extends Fragment {
             @Override
             public void onFailure() {
                 swipeRefreshLayout.setRefreshing(false);
-                swipeRefreshLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
                 notice.setText("Can't connect to the internet");
                 notice.setVisibility(View.VISIBLE);
             }
@@ -118,7 +118,7 @@ public class TabNotifications extends Fragment {
             @Override
             public void onError(Exception e) {
                 swipeRefreshLayout.setRefreshing(false);
-                swipeRefreshLayout.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.GONE);
                 notice.setText("Can't connect to the internet");
                 notice.setVisibility(View.VISIBLE);
             }
