@@ -68,7 +68,7 @@ public class AssignmentListAdapter extends RecyclerView.Adapter<AssignmentListAd
         Assignment assignment = assignmentList.getAssignmentAt(i);
         assignmentViewHolder.assignmentName.setText(assignment.assignmentName);
         assignmentViewHolder.dateCreated.setText(assignment.dateCreated);
-        assignmentViewHolder.lateDaysAllowed.setText("Late days allowed : "+assignment.lateDaysAllowed);
+        assignmentViewHolder.lateDaysAllowed.setText("Deadline : "+assignment.deadLine);
     }
 
     @Override

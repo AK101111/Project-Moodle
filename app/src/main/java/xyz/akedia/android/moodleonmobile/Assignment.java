@@ -6,14 +6,14 @@ package xyz.akedia.android.moodleonmobile;
 public class Assignment {
     public String assignmentName;
     public String dateCreated;
-    public String lateDaysAllowed;
+    public String deadLine;
 //    private String posted_by;
 //    private String thread_link;
 //    private String courseid;
 
-    public Assignment(String name, String date,String lateDays){
+    public Assignment(String name, String date,String deadline){
         this.assignmentName = name;
         this.dateCreated = date;
-        this.lateDaysAllowed = lateDays;
+        this.deadLine = deadline;
     }
 }

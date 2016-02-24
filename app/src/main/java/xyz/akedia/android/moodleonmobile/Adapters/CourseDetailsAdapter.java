@@ -40,7 +40,7 @@ public class CourseDetailsAdapter extends FragmentPagerAdapter {
     private AssignmentList getDummyAssignmentList(){
         AssignmentList assignmentList = new AssignmentList();
         for(int i = 0; i < 12; i++){
-            Assignment assignment = new Assignment("You've a new assignment!","12-01-2016","2");
+            Assignment assignment = new Assignment("You've a new assignment!","12-01-2016","22-01-2016");
             assignmentList.addAssignment(assignment);
         }
         return assignmentList;
